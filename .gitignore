@@ -63,3 +63,4 @@ phantomjsdriver.log
 .idea
 
 */.checkstyle
+/nb-configuration.xml
