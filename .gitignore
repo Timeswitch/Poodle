@@ -58,6 +58,8 @@ widgets/target/
 phantomjsdriver.log
 
 *.iml
+*.ipr
+*.iws
 .idea
 
 */.checkstyle
