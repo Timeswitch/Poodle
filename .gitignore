@@ -64,3 +64,4 @@ phantomjsdriver.log
 
 */.checkstyle
 /nb-configuration.xml
+/hibernate.cfg.xml
