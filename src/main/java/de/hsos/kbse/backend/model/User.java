@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User implements Serializable{
+public class User implements Model{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
