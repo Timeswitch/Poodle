@@ -59,6 +59,11 @@
 			<version>1.2</version>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.3.4.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-server</artifactId>
 		</dependency>
@@ -195,6 +200,10 @@
 				<version>${jetty.plugin.version}</version>
 				<configuration>
 				    <scanIntervalSeconds>2</scanIntervalSeconds>
+					<contextXml>src/main/webapp/WEB-INF/jetty-context.xml</contextXml>
+					<webApp>
+						<overrideDescriptor>src/main/webapp/WEB-INF/web-add.xml</overrideDescriptor>
+					</webApp>
 				</configuration>
 			</plugin>
 		</plugins>
