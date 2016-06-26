@@ -1,4 +1,4 @@
-package de.hsos.kbse;
+package de.hsos.kbse.view;
 
 import javax.servlet.annotation.WebServlet;
 
