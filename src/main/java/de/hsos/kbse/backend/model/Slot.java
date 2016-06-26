@@ -1,4 +1,4 @@
-package de.hsos.kbse.backend;
+package de.hsos.kbse.backend.model;
 
 /**
  * Created by jan on 26.06.2016.

@@ -1,4 +1,4 @@
-package de.hsos.kbse.backend;
+package de.hsos.kbse.backend.model;
 
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.*;
@@ -11,18 +11,18 @@ import java.util.List;
 
 @Entity
 @Vetoed
-@Table(name = "STUDENT")
-public class Student extends User implements Serializable{
+@Table(name = "PROFESSOR")
+public class Professor extends User implements Serializable{
 
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "EXAM_ID")
     private List<Exam> exams;
 
-    public Student(){
+    public Professor(){
         super();
     }
 
-    public Student(String email, String password){
+    public Professor(String email, String password){
         super(email, password);
     }
 

@@ -1,4 +1,4 @@
-package de.hsos.kbse.backend;
+package de.hsos.kbse.backend.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
