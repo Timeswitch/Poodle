@@ -25,7 +25,7 @@ import javax.persistence.criteria.Root;
  */
 
 public abstract class GenericRepository<T extends Model> implements Serializable{
-    @PersistenceContext(unitName="Pizza4Me",type=PersistenceContextType.TRANSACTION)
+    @PersistenceContext(unitName="DB",type=PersistenceContextType.TRANSACTION)
     protected EntityManager em;
     
     protected final Class<T> type;
