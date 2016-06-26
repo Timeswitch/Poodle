@@ -7,6 +7,7 @@ import java.io.Serializable;
  * Created by jan on 25.06.2016.
  */
 
+@Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User implements Model{
 
