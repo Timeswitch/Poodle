@@ -1,19 +1,19 @@
 package de.hsos.kbse.backend.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by jan on 25.06.2016.
  */
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name="POODLE_USER")
 public class User implements Model{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long id;
 
     private String email;
 

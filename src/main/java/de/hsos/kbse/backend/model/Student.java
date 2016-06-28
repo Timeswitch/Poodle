@@ -11,11 +11,9 @@ import java.util.List;
 
 @Entity
 @Vetoed
-@Table(name = "STUDENT")
 public class Student extends User{
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "EXAM_ID")
     private List<Exam> exams;
 
     public Student(){

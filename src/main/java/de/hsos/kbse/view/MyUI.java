@@ -1,10 +1,12 @@
 package de.hsos.kbse.view;
 
+import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Button;
@@ -12,6 +14,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import de.hsos.kbse.backend.Repository.StudentRepository;
+import de.hsos.kbse.backend.model.Student;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -22,7 +26,11 @@ import com.vaadin.ui.VerticalLayout;
  */
 @Theme("mytheme")
 @Widgetset("de.hsos.kbse.MyAppWidgetset")
+@CDIUI("")
 public class MyUI extends UI {
+
+    @Inject
+    StudentRepository studentRepository;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
@@ -42,10 +50,14 @@ public class MyUI extends UI {
         layout.setSpacing(true);
         
         setContent(layout);
+
+        Student s = new Student();
+        s.setEmail("heyho");
+        this.studentRepository.add(s);
     }
 
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
-    }
+//    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+//    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
+//    public static class MyUIServlet extends VaadinServlet {
+//    }
 }

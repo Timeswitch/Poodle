@@ -63,11 +63,7 @@
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.weld.servlet</groupId>
-			<artifactId>weld-servlet</artifactId>
-			<version>2.3.4.Final</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.vaadin</groupId>
@@ -105,26 +101,29 @@
 			<artifactId>vaadin-cdi</artifactId>
 			<version>1.0.3</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.1.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
 			<version>1.0.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>5.1.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.0.Final</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -215,6 +214,7 @@
 		</plugins>
 	</build>
 
+
 	<profiles>
 		<profile>
 			<!-- Vaadin pre-release repositories -->
@@ -235,6 +235,92 @@
 					<url>http://maven.vaadin.com/vaadin-prereleases</url>
 				</pluginRepository>
 			</pluginRepositories>
+		</profile>
+		<profile>
+			<id>poodle-develop</id>
+
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.derby</groupId>
+					<artifactId>derby</artifactId>
+					<version>10.11.1.1</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.wildfly.plugins</groupId>
+						<artifactId>wildfly-maven-plugin</artifactId>
+						<version>1.1.0.Alpha9</version>
+						<configuration>
+							<server-config>standalone-full.xml</server-config>
+							<add-user>user:user</add-user>
+						</configuration>
+						<executions>
+							<!-- Undeploy the application on clean -->
+							<execution>
+								<id>undeploy</id>
+								<phase>clean</phase>
+								<goals>
+									<goal>undeploy</goal>
+								</goals>
+								<configuration>
+									<ignoreMissingDeployment>true</ignoreMissingDeployment>
+								</configuration>
+							</execution>
+							<!-- Deploy the JDBC library -->
+							<execution>
+								<id>deploy-driver</id>
+								<phase>install</phase>
+								<configuration>
+									<groupId>org.apache.derby</groupId>
+									<artifactId>derby</artifactId>
+									<name>derby.jar</name>
+								</configuration>
+								<goals>
+									<goal>deploy-artifact</goal>
+								</goals>
+							</execution>
+
+							<!-- Add a data source -->
+							<execution>
+								<id>add-datasource</id>
+								<phase>install</phase>
+								<configuration>
+									<address>subsystem=datasources,data-source=java:/Poodle/DB</address>
+									<resources>
+										<resource>
+											<!--<enableResource>true</enableResource>-->
+											<properties>
+												<connection-url>${poodle.jdbc.url}</connection-url>
+												<jndi-name>java:/Poodle/DB</jndi-name>
+												<enabled>true</enabled>
+												<enable>true</enable>
+												<user-name>${poodle.jdbc.user}</user-name>
+												<password>${poodle.jdbc.password}</password>
+												<driver-name>derby.jar</driver-name>
+												<use-ccm>false</use-ccm>
+											</properties>
+										</resource>
+									</resources>
+								</configuration>
+								<goals>
+									<goal>add-resource</goal>
+								</goals>
+							</execution>
+
+							<!-- Deploy the application on install -->
+							<execution>
+								<id>deploy</id>
+								<phase>install</phase>
+								<goals>
+									<goal>deploy</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 

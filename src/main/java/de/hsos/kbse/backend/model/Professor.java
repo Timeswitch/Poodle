@@ -11,11 +11,9 @@ import java.util.List;
 
 @Entity
 @Vetoed
-@Table(name = "PROFESSOR")
 public class Professor extends User implements Serializable{
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "EXAM_ID")
     private List<Exam> exams;
 
     public Professor(){

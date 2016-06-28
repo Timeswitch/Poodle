@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <profiles>
+        <profile>
+            <id>poodle-properties</id>
+            <properties>
+                <poodle.jdbc.url>jdbc:derby:/Users/michael/Documents/Derby/poodle;create=true</poodle.jdbc.url>
+                <poodle.jdbc.user>user</poodle.jdbc.user>
+                <poodle.jdbc.password>pass</poodle.jdbc.password>
+            </properties>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>poodle-properties</activeProfile>
+        <activeProfile>poodle-develop</activeProfile>
+    </activeProfiles>
+</settings>
