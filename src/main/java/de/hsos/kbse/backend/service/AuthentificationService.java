@@ -42,4 +42,14 @@ public class AuthentificationService {
 
         return false;
     }
+
+    public void logout(){
+        this.sessionService.setCurrentUser(null);
+
+        try {
+            this.jaasAccessControl.logout();
+        }catch (ServletException e){
+            //So oder so ist der User nicht mehr eingeloggt.
+        }
+    }
 }

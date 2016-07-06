@@ -13,6 +13,7 @@ import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.service.AuthentificationService;
 import de.hsos.kbse.view.MyUI;
 
+import javax.ejb.EJB;
 import javax.persistence.*;
 
 /**
@@ -24,6 +25,9 @@ public class ExamView extends CustomComponent implements View{
 
     private Navigator nav;
 
+    @EJB
+    private AuthentificationService authentificationService;
+
     @Override
     public void enter(ViewChangeEvent event) {
 
@@ -33,12 +37,7 @@ public class ExamView extends CustomComponent implements View{
         header.setStyleName("h1");
 
         Button logoutButton = new Button("Abmelden");
-        logoutButton.addClickListener(new Button.ClickListener(){
-            public void buttonClick(ClickEvent event){
-
-                nav.navigateTo("login");
-            }
-        });
+        logoutButton.addClickListener((ClickListener) event1 -> this.onLogoutClick());
 
         Table datatable = new Table("Prüfungen");
 
@@ -63,5 +62,10 @@ public class ExamView extends CustomComponent implements View{
         layout.addComponent(header);
         layout.addComponent(datatable);
         layout.addComponent(logoutButton);
+    }
+
+    protected void onLogoutClick(){
+        this.authentificationService.logout();
+        nav.navigateTo("login");
     }
 }

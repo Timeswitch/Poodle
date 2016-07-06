@@ -39,20 +39,10 @@ public class LoginView extends CustomComponent implements View{
         this.usernameField = new TextField("Benutzername");
         this.passwordField = new PasswordField("Passwort");
         this.loginButton = new Button("Anmelden");
-        this.loginButton.addClickListener(new Button.ClickListener(){
-            public void buttonClick(ClickEvent event){
-
-                nav.navigateTo("exams");
-            }
-        });
+        this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
 
         this.registerButton = new Button("Registrieren");
-        this.registerButton.addClickListener(new Button.ClickListener(){
-            public void buttonClick(ClickEvent event){
-
-                nav.navigateTo("register");
-            }
-        });
+        this.registerButton.addClickListener((Button.ClickListener) event12 -> nav.navigateTo("register"));
 
         VerticalLayout layout = new VerticalLayout();
         setCompositionRoot(layout);
@@ -66,4 +56,15 @@ public class LoginView extends CustomComponent implements View{
         layout.addComponent(this.loginButton);
         layout.addComponent(this.registerButton);
     }
+
+
+    private void onLoginClick(){
+
+        if(this.authentificationService.authenticate(this.usernameField.getValue(),this.passwordField.getValue())){
+            nav.navigateTo("exams");
+        }
+
+    }
+
+
 }
