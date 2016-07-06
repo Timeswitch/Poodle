@@ -8,6 +8,9 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import de.hsos.kbse.backend.service.AuthentificationService;
+
+import javax.ejb.EJB;
 
 /**
  * Created by jan on 06.07.2016.
@@ -16,6 +19,9 @@ import com.vaadin.ui.Button.ClickListener;
 @CDIView("login")
 public class LoginView extends CustomComponent implements View, ClickListener{
 
+
+    @EJB
+    AuthentificationService authentificationService;
 
     private TextField usernameField;
     private PasswordField passwordField;
@@ -48,6 +54,8 @@ public class LoginView extends CustomComponent implements View, ClickListener{
 
     @Override
     public void buttonClick(ClickEvent event) {
+
+        layout.addComponent(new Label("Login: "+this.authentificationService.authenticate(this.usernameField.getValue(),this.passwordField.getValue())));
         // Dummy implementation
 
 
