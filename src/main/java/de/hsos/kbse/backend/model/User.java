@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="POODLE_USER")
+@NamedQueries({
+        @NamedQuery(name="User.findByEmail",
+                    query="SELECT u FROM User u WHERE u.email = :email")
+})
 public class User implements Model{
 
     @Id
