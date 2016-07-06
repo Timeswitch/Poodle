@@ -237,8 +237,36 @@
 			</pluginRepositories>
 		</profile>
 		<profile>
-			<id>poodle-develop</id>
-
+			<id>poodle-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.derby</groupId>
+					<artifactId>derby</artifactId>
+					<version>10.11.1.1</version>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.wildfly.plugins</groupId>
+						<artifactId>wildfly-maven-plugin</artifactId>
+						<version>1.1.0.Alpha9</version>
+						<configuration>
+							<hostname>${wildfly-hostname}</hostname>
+							<port>${wildfly-port}</port>
+							<username>${wildfly-username}</username>
+							<password>${wildfly-password}</password>
+						</configuration>
+						<executions>
+							<execution>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>poodle-embedded</id>
 			<dependencies>
 				<dependency>
 					<groupId>org.apache.derby</groupId>
@@ -299,12 +327,12 @@
 										<resource>
 											<!--<enableResource>true</enableResource>-->
 											<properties>
-												<connection-url>${poodle.jdbc.url}</connection-url>
+												<connection-url>${derby.jdbc.url}</connection-url>
 												<jndi-name>java:/Poodle/DB</jndi-name>
 												<enabled>true</enabled>
 												<enable>true</enable>
-												<user-name>${poodle.jdbc.user}</user-name>
-												<password>${poodle.jdbc.password}</password>
+												<user-name>${derby.jdbc.user}</user-name>
+												<password>${derby.jdbc.password}</password>
 												<driver-name>derby.jar</driver-name>
 												<use-ccm>false</use-ccm>
 											</properties>
