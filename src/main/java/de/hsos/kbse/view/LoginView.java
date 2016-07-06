@@ -1,8 +1,5 @@
 package de.hsos.kbse.view;
 
-import javax.inject.Inject;
-
-
 import com.vaadin.cdi.CDIView;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.Navigator;
@@ -11,9 +8,6 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import de.hsos.kbse.backend.Repository.StudentRepository;
-import de.hsos.kbse.backend.model.Student;
-import de.hsos.kbse.view.MyUI;
 
 /**
  * Created by jan on 06.07.2016.
