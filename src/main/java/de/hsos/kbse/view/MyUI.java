@@ -29,9 +29,6 @@ import de.hsos.kbse.backend.model.Student;
 @CDIUI("")
 public class MyUI extends UI {
 
-    @Inject
-    StudentRepository studentRepository;
-
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         final VerticalLayout layout = new VerticalLayout();
@@ -50,10 +47,6 @@ public class MyUI extends UI {
         layout.setSpacing(true);
         
         setContent(layout);
-
-        Student s = new Student();
-        s.setEmail("heyho");
-        this.studentRepository.add(s);
     }
 
 //    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
