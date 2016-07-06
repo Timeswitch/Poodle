@@ -16,6 +16,8 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import de.hsos.kbse.backend.Repository.StudentRepository;
 import de.hsos.kbse.backend.model.Student;
+import com.vaadin.navigator.Navigator;
+import com.vaadin.cdi.CDIViewProvider;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -30,30 +32,21 @@ import de.hsos.kbse.backend.model.Student;
 public class MyUI extends UI {
 
     @Inject
-    StudentRepository studentRepository;
+    private StudentRepository studentRepository;
+
+    @Inject
+    private CDIViewProvider viewProvider;
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final VerticalLayout layout = new VerticalLayout();
-        
-        final TextField name = new TextField();
-        name.setCaption("Type your name here:");
 
-        Button button = new Button("Click Me");
-        button.addClickListener( e -> {
-            layout.addComponent(new Label("Thanks " + name.getValue() 
-                    + ", it works!"));
-        });
-        
-        layout.addComponents(name, button);
-        layout.setMargin(true);
-        layout.setSpacing(true);
-        
-        setContent(layout);
+        Navigator navigator = new Navigator(this, this);
+        navigator.addProvider(viewProvider);
+        navigator.navigateTo("login");
+    }
 
-        Student s = new Student();
-        s.setEmail("heyho");
-        this.studentRepository.add(s);
+    public StudentRepository getStudentRepository(){
+        return this.studentRepository;
     }
 
 //    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
