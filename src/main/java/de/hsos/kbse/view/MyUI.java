@@ -32,9 +32,6 @@ import com.vaadin.cdi.CDIViewProvider;
 public class MyUI extends UI {
 
     @Inject
-    private StudentRepository studentRepository;
-
-    @Inject
     private CDIViewProvider viewProvider;
 
     @Override
@@ -43,10 +40,6 @@ public class MyUI extends UI {
         Navigator navigator = new Navigator(this, this);
         navigator.addProvider(viewProvider);
         navigator.navigateTo("login");
-    }
-
-    public StudentRepository getStudentRepository(){
-        return this.studentRepository;
     }
 
 //    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
