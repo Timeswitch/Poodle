@@ -255,6 +255,13 @@
 						<configuration>
 							<server-config>standalone-full.xml</server-config>
 							<add-user>user:user</add-user>
+							<execute-commands>
+								<commands>
+									<command>/subsystem=security/security-domain=poodleD:add(cache-type=default)</command>
+									<command>/subsystem=security/security-domain=poodleD/authentication=classic:add(login-modules=[{"code"=>"Database","flag"=>"required","module-options"=>[("dsJndiName"=>"java:java:/Poodle/DB"),("principalsQuery"=>"SELECT PASSWORD FROM POODLE_USER WHERE EMAIL=?"),("rolesQuery"=>"select role, 'Roles' FROM POODLE_USER WHERE EMAIL=?"),("hashAlgorithm"=>"SHA-256"),("hashEncoding"=>"hex"),("hashCharset"=>"UTF-8")]}])</command>
+									<command>:reload</command>
+								</commands>
+							</execute-commands>
 						</configuration>
 						<executions>
 							<!-- Undeploy the application on clean -->
@@ -308,7 +315,6 @@
 									<goal>add-resource</goal>
 								</goals>
 							</execution>
-
 							<!-- Deploy the application on install -->
 							<execution>
 								<id>deploy</id>

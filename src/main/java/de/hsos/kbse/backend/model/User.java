@@ -1,5 +1,7 @@
 package de.hsos.kbse.backend.model;
 
+import de.hsos.kbse.backend.security.Role;
+
 import javax.persistence.*;
 
 /**
@@ -13,15 +15,18 @@ import javax.persistence.*;
         @NamedQuery(name="User.findByEmail",
                     query="SELECT u FROM User u WHERE u.email = :email")
 })
-public class User implements Model{
+public abstract class User implements Model{
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    protected Long id;
 
-    private String email;
+    protected String email;
 
-    private String password;
+    protected String password;
+
+    @Enumerated(EnumType.STRING)
+    protected Role role;
 
     public User(){}
 

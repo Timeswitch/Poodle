@@ -1,5 +1,7 @@
 package de.hsos.kbse.backend.model;
 
+import de.hsos.kbse.backend.security.Role;
+
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class Student extends User{
 
     public Student(){
         super();
+        this.role = Role.STUDENT;
     }
 
     public Student(String email, String password){

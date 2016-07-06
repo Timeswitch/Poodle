@@ -1,5 +1,7 @@
 package de.hsos.kbse.backend.model;
 
+import de.hsos.kbse.backend.security.Role;
+
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +20,7 @@ public class Professor extends User implements Serializable{
 
     public Professor(){
         super();
+        this.role = Role.PROFESSOR;
     }
 
     public Professor(String email, String password){

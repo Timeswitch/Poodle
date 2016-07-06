@@ -1,6 +1,6 @@
 package de.hsos.kbse.backend.service;
 
-import de.hsos.kbse.backend.Repository.UserRepository;
+import de.hsos.kbse.backend.repository.UserRepository;
 import de.hsos.kbse.backend.model.User;
 
 import javax.ejb.Stateless;

@@ -1,4 +1,4 @@
-package de.hsos.kbse.backend.Repository;
+package de.hsos.kbse.backend.repository;
 
 import de.hsos.kbse.backend.model.Student;
 
