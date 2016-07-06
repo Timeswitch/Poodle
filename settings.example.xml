@@ -4,16 +4,25 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <profiles>
         <profile>
-            <id>poodle-properties</id>
+            <id>derby-embedded</id>
             <properties>
-                <poodle.jdbc.url>jdbc:derby:/Users/michael/Documents/Derby/poodle;create=true</poodle.jdbc.url>
-                <poodle.jdbc.user>user</poodle.jdbc.user>
-                <poodle.jdbc.password>pass</poodle.jdbc.password>
+                <derby.jdbc.url>jdbc:derby:/Users/michael/Documents/Derby/poodle;create=true</derby.jdbc.url>
+                <derby.jdbc.user>user</derby.jdbc.user>
+                <derby.jdbc.password>pass</derby.jdbc.password>
+            </properties>
+        </profile>
+        <profile>
+            <id>wildfly-remote</id>
+            <properties>
+                <wildfly-hostname>192.168.1.35:8080</wildfly-hostname>
+                <wildfly-port>9990</wildfly-port>
+                <wildfly-username>poodle</wildfly-username>
+                <wildfly-password>poodle</wildfly-password>
             </properties>
         </profile>
     </profiles>
     <activeProfiles>
-        <activeProfile>poodle-properties</activeProfile>
-        <activeProfile>poodle-develop</activeProfile>
+        <activeProfile>wildfly-remote</activeProfile>
+        <activeProfile>derby-embedded</activeProfile>
     </activeProfiles>
 </settings>
