@@ -39,15 +39,14 @@ public class LoginView extends VerticalLayout implements View{
 
     public LoginView(){
         Design.read(this);
+
+        this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
+        this.registerButton.addClickListener((Button.ClickListener) event12 -> this.onRegisterClick());
     }
 
     @Override
     public void enter(ViewChangeEvent event) {
-
         nav = getUI().getNavigator();
-
-        this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
-        this.registerButton.addClickListener((Button.ClickListener) event12 -> this.onRegisterClick());
     }
 
 

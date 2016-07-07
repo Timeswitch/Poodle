@@ -72,4 +72,12 @@ public class AuthentificationService {
         return true;
 
     }
+
+    public boolean isLoggedIn(){
+        return this.jaasAccessControl.isUserSignedIn();
+    }
+
+    public boolean isUserInRole(Role role){
+        return this.jaasAccessControl.isUserInRole(role.name());
+    }
 }

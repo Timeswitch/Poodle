@@ -13,6 +13,10 @@ import java.util.List;
  */
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Exam.findByProfessor",
+                query="SELECT e FROM Exam e WHERE e.professor = :professor")
+})
 public class Exam extends Model{
 
     @Id

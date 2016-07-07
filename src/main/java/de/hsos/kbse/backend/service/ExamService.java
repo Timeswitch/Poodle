@@ -7,15 +7,16 @@ import de.hsos.kbse.backend.repository.ExamRepository;
 import de.hsos.kbse.backend.repository.StudentRepository;
 
 import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
  * Created by michael on 07/07/16.
  */
 @Stateless
-@DeclareRoles({"PROFESSOR"})
 public class ExamService {
 
     @Inject
@@ -44,6 +45,12 @@ public class ExamService {
     public void removeStudent(Exam e, Student s){
         e.removeStudent(s);
         this.examRepository.update(e);
+    }
+
+    public Collection<Exam> findExams(){
+
+        Professor p = (Professor)this.sessionService.getCurrentUser();
+        return this.examRepository.findByProfessor(p);
     }
 
 }
