@@ -42,7 +42,7 @@ public class LoginView extends VerticalLayout implements View{
         nav = getUI().getNavigator();
 
         this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
-        this.registerButton.addClickListener((Button.ClickListener) event12 -> nav.navigateTo("register"));
+        this.registerButton.addClickListener((Button.ClickListener) event12 -> this.onRegisterClick());
 
 //        VerticalLayout layout = new VerticalLayout();
 //        setCompositionRoot(layout);
@@ -63,8 +63,10 @@ public class LoginView extends VerticalLayout implements View{
         if(this.authentificationService.authenticate(this.usernameField.getValue(),this.passwordField.getValue())){
             nav.navigateTo("exams");
         }
-
     }
 
+    private void onRegisterClick(){
 
+        nav.navigateTo("register");
+    }
 }
