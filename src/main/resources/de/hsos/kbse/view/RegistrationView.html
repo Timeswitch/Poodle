@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<body>
+<v-vertical-layout spacing margin>
+    <v-label><h1>Registrieren</h1></v-label>
+    <v-text-field immediate caption="Email" _id="usernameField" />
+    <v-horizontal-layout spacing>
+        <v-password-field caption="Password" _id="passwordField"/>
+        <v-password-field caption="Password wiederholen" _id="passwordConfirmField"/>
+    </v-horizontal-layout>
+    <v-native-select caption="Gruppe" _id="dropdown">
+
+
+    </v-native-select>
+    <v-horizontal-layout spacing>
+        <v-button style-name="primary" _id="registerButton">Registrieren</v-button>
+        <v-button style-name="primary" _id="abortButton">Abbrechen</v-button>
+    </v-horizontal-layout>
+</v-vertical-layout>
+</body>
+</html>
