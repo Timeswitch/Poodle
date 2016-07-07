@@ -1,5 +1,6 @@
 package de.hsos.kbse.view;
 
+import com.vaadin.annotations.DesignRoot;
 import com.vaadin.cdi.CDIView;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.Navigator;
@@ -9,6 +10,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Table;
+import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.service.AuthentificationService;
 import de.hsos.kbse.view.MyUI;
@@ -21,25 +23,26 @@ import javax.persistence.*;
  */
 
 @CDIView("exams")
-public class ExamView extends CustomComponent implements View{
+@DesignRoot
+public class ExamView extends VerticalLayout implements View{
 
     private Navigator nav;
 
+    private Table datatable;
+
+    private Button logoutButton;
+
     @EJB
     private AuthentificationService authentificationService;
+
+    public ExamView(){
+        Design.read(this);
+    }
 
     @Override
     public void enter(ViewChangeEvent event) {
 
         nav = getUI().getNavigator();
-
-        Label header = new Label("Prüfungen");
-        header.setStyleName("h1");
-
-        Button logoutButton = new Button("Abmelden");
-        logoutButton.addClickListener((ClickListener) event1 -> this.onLogoutClick());
-
-        Table datatable = new Table("Prüfungen");
 
         datatable.addContainerProperty("Name", String.class, null);
         datatable.addContainerProperty("Dozent", String.class, null);
@@ -53,15 +56,8 @@ public class ExamView extends CustomComponent implements View{
 
         datatable.setPageLength(datatable.size());
 
-        VerticalLayout layout = new VerticalLayout();
-        setCompositionRoot(layout);
-        layout.setSizeFull();
-        layout.setMargin(true);
-        layout.setSpacing(true);
+        this.logoutButton.addClickListener((Button.ClickListener) event1 -> this.onLogoutClick());
 
-        layout.addComponent(header);
-        layout.addComponent(datatable);
-        layout.addComponent(logoutButton);
     }
 
     protected void onLogoutClick(){
