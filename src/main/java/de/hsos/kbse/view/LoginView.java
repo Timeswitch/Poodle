@@ -41,15 +41,7 @@ public class LoginView extends VerticalLayout implements View{
 
         nav = getUI().getNavigator();
 
-        Label header = new Label("Anmelden");
-        header.setStyleName("h1");
-
-        this.usernameField = new TextField("Benutzername");
-        this.passwordField = new PasswordField("Passwort");
-        this.loginButton = new Button("Anmelden");
         this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
-
-        this.registerButton = new Button("Registrieren");
         this.registerButton.addClickListener((Button.ClickListener) event12 -> nav.navigateTo("register"));
 
 //        VerticalLayout layout = new VerticalLayout();

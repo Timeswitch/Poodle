@@ -2,14 +2,13 @@
 <head>
 </head>
 <body>
-<v-vertical-layout spacing>
+<v-vertical-layout spacing margin>
     <v-label><h3>Login</h3></v-label>
-    <v-horizontal-layout spacing>
-        <v-text-field immediate caption="Email" _id="usernameField" />
-        <v-password-field caption="Password" _id="passwordField" :expand :left/>
-    </v-horizontal-layout>
+    <v-text-field immediate caption="Email" _id="usernameField" />
+    <v-password-field caption="Password" _id="passwordField"/>
     <v-button style-name="primary" _id="loginButton">Login</v-button>
     <v-button style-name="primary" _id="registerButton">Registrieren</v-button>
+
 </v-vertical-layout>
 </body>
 </html>
