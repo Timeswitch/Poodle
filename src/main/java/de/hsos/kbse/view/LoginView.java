@@ -43,18 +43,6 @@ public class LoginView extends VerticalLayout implements View{
 
         this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
         this.registerButton.addClickListener((Button.ClickListener) event12 -> this.onRegisterClick());
-
-//        VerticalLayout layout = new VerticalLayout();
-//        setCompositionRoot(layout);
-//        layout.setSizeFull();
-//        layout.setMargin(true);
-//        layout.setSpacing(true);
-//
-//        layout.addComponent(header);
-//        layout.addComponent(this.usernameField);
-//        layout.addComponent(this.passwordField);
-//        layout.addComponent(this.loginButton);
-//        layout.addComponent(this.registerButton);
     }
 
 
