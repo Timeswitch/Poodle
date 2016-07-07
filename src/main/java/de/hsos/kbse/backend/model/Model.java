@@ -6,23 +6,17 @@ import java.io.Serializable;
 /**
  * Created by michael on 26/06/16.
  */
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Model implements Serializable, Cloneable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    protected Long id;
 
-    public long getId(){
-        return this.id;
-    }
+public abstract class Model implements Serializable, Cloneable {
+
+    public abstract Object getId();
 
     @Override
     public boolean equals(Object obj) {
-        if(this.id == null || !obj.getClass().equals(this.getClass())){
+        if(this.getId() == null || !obj.getClass().equals(this.getClass())){
             return false;
         }else{
-            return this.id.equals(((Model)obj).getId());
+            return this.getId().equals(((Model)obj).getId());
         }
     }
 }

@@ -15,6 +15,10 @@ import java.util.List;
 @Entity
 public class Exam extends Model{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    protected Long id;
+
     @NotEmpty
     private String name;
 
@@ -33,7 +37,8 @@ public class Exam extends Model{
         this.name = name;
     }
 
-    public long getId(){
+    @Override
+    public Long getId(){
         return this.id;
     }
 

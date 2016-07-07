@@ -16,6 +16,9 @@ import javax.persistence.*;
                     query="SELECT u FROM User u WHERE u.email = :email")
 })
 public abstract class User extends Model{
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    protected Long id;
 
     protected String email;
 
@@ -29,6 +32,11 @@ public abstract class User extends Model{
     public User(String email, String password){
         this.email = email;
         this.password = password;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
     }
 
     public String getEmail(){
@@ -45,6 +53,10 @@ public abstract class User extends Model{
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     public static User make(Role role){
