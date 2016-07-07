@@ -9,6 +9,10 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Label;
+import de.hsos.kbse.backend.security.Role;
+import de.hsos.kbse.backend.service.AuthentificationService;
+
+import javax.ejb.EJB;
 
 
 /**
@@ -25,6 +29,9 @@ public class RegistrationView extends CustomComponent implements View{
 
     private Navigator nav;
 
+    @EJB
+    AuthentificationService authentificationService;
+
     @Override
     public void enter(ViewChangeEvent event){
 
@@ -37,11 +44,7 @@ public class RegistrationView extends CustomComponent implements View{
         this.usernameField = new TextField("Benutzername");
         this.passwordField = new TextField("Passwort");
         this.registerButton = new Button("Registrieren");
-        this.registerButton.addClickListener(new Button.ClickListener(){
-            public void buttonClick(ClickEvent event){
-                nav.navigateTo("");
-            }
-        });
+        this.registerButton.addClickListener((Button.ClickListener) event1 -> this.onRegisterClick());
 
         this.abortButton = new Button("Abbrechen");
         this.abortButton.addClickListener(new Button.ClickListener(){
@@ -61,6 +64,12 @@ public class RegistrationView extends CustomComponent implements View{
         layout.addComponent(this.passwordField);
         layout.addComponent(this.registerButton);
         layout.addComponent(this.abortButton);
+    }
+
+    public void onRegisterClick(){
+        if(authentificationService.register(this.usernameField.getValue(),this.passwordField.getValue(), Role.STUDENT)){
+            this.nav.navigateTo("login");
+        }
     }
 
 }
