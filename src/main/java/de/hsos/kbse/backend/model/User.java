@@ -54,4 +54,19 @@ public abstract class User implements Model{
     public void setPassword(String password){
         this.password = password;
     }
+
+    public static User make(Role role){
+        User u = null;
+
+        switch(role){
+            case PROFESSOR:
+                u = new Professor();
+                break;
+            case STUDENT:
+                u = new Student();
+                break;
+        }
+
+        return u;
+    }
 }
