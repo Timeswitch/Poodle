@@ -4,6 +4,7 @@ import javax.enterprise.inject.Vetoed;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -12,7 +13,7 @@ import java.sql.Time;
  */
 @Embeddable
 @Vetoed
-public class Slot {
+public class Slot implements Serializable {
 
     @OneToOne
     @NotNull

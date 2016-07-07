@@ -15,11 +15,7 @@ import javax.persistence.*;
         @NamedQuery(name="User.findByEmail",
                     query="SELECT u FROM User u WHERE u.email = :email")
 })
-public abstract class User implements Model{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    protected Long id;
+public abstract class User extends Model{
 
     protected String email;
 
@@ -33,10 +29,6 @@ public abstract class User implements Model{
     public User(String email, String password){
         this.email = email;
         this.password = password;
-    }
-
-    public long getId(){
-        return this.id;
     }
 
     public String getEmail(){

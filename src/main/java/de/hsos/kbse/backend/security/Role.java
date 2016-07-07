@@ -5,7 +5,8 @@ package de.hsos.kbse.backend.security;
  */
 public enum Role {
     PROFESSOR("Professor"),
-    STUDENT("Student");
+    STUDENT("Student"),
+    GUEST("Guest");
 
     private String name;
 

@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,23 +13,19 @@ import java.util.List;
  */
 
 @Entity
-public class Exam implements Serializable{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+public class Exam extends Model{
 
     @NotEmpty
     private String name;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Slot> slots;
+    private List<Slot> slots = new ArrayList<>();
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Professor professor;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    private Collection<Student> students;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Collection<Student> students = new ArrayList<>();
 
     public Exam(){}
 
@@ -54,5 +51,31 @@ public class Exam implements Serializable{
 
     public void setSlots(List<Slot> slots){
         this.slots = slots;
+    }
+
+    public Collection<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Collection<Student> students) {
+        this.students = students;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public void addStudent(Student e){
+        if(!this.students.contains(e)){
+            this.students.add(e);
+        }
+    }
+
+    public void removeStudent(Student e){
+        this.students.remove(e);
     }
 }
