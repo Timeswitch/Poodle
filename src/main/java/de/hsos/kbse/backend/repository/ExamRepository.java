@@ -18,6 +18,13 @@ public class ExamRepository extends GenericRepository<Exam> {
         super(Exam.class);
     }
 
+    @Override
+    public boolean add(Exam entity) {
+
+        this.em.refresh(entity.getProfessor());
+        return super.add(entity);
+    }
+
     public Collection<Exam> findByProfessor(Professor p){
 
         TypedQuery<Exam> query = this.em.createNamedQuery("Exam.findByProfessor",this.type);

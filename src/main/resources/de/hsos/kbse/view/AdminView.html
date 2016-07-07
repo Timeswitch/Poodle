@@ -6,7 +6,10 @@
     <v-label><h1>Ihre Prüfungen</h1></v-label>
 
     <vaadin-table _id="examTable" caption="Erstellte Prüfungen" size-full :expand/>
-    <v-button style-name="primary" _id="newButton">Neue Prüfung</v-button>
+    <v-horizontal-layout size-full :expand>
+        <v-button style-name="primary" _id="newButton">Neue Prüfung</v-button>
+        <v-text-field immediate _id="nameField" width="10em"/>
+    </v-horizontal-layout>
 
 </v-vertical-layout>
 </body>

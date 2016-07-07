@@ -4,6 +4,7 @@ import de.hsos.kbse.backend.model.Exam;
 import de.hsos.kbse.backend.model.Professor;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.repository.ExamRepository;
+import de.hsos.kbse.backend.repository.ProfessorRepository;
 import de.hsos.kbse.backend.repository.StudentRepository;
 
 import javax.annotation.security.DeclareRoles;
@@ -26,11 +27,15 @@ public class ExamService {
     StudentRepository studentRepository;
 
     @Inject
+    ProfessorRepository professorRepository;
+
+    @Inject
     ExamRepository examRepository;
 
     public Exam createExam(String name){
         Exam e = new Exam(name);
-        e.setProfessor((Professor)sessionService.getCurrentUser());
+        Professor p = this.professorRepository.find(this.sessionService.getCurrentUser().getId());
+        e.setProfessor(p);
 
         this.examRepository.add(e);
 
