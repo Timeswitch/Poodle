@@ -3,6 +3,7 @@ package de.hsos.kbse.backend.model;
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -14,9 +15,13 @@ import java.sql.Time;
 public class Slot {
 
     @OneToOne
+    @NotNull
     Student student;
 
+    @NotNull
     Date date;
+
+    @NotNull
     Time time;
 
     public Student getStudent() {

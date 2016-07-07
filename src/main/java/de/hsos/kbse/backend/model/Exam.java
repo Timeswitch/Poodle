@@ -1,7 +1,10 @@
 package de.hsos.kbse.backend.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -15,10 +18,17 @@ public class Exam implements Serializable{
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
+    @NotEmpty
     private String name;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Slot> slots;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Professor professor;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private Collection<Student> students;
 
     public Exam(){}
 

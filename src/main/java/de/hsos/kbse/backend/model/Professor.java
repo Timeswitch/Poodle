@@ -15,7 +15,7 @@ import java.util.List;
 @Vetoed
 public class Professor extends User implements Serializable{
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "professor")
     private List<Exam> exams;
 
     public Professor(){

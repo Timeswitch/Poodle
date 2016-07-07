@@ -1,6 +1,7 @@
 package de.hsos.kbse.backend.model;
 
 import de.hsos.kbse.backend.security.Role;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.enterprise.inject.Vetoed;
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 @Vetoed
 public class Student extends User{
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST)
     private List<Exam> exams;
 
     public Student(){
