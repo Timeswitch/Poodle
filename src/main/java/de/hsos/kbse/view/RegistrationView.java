@@ -14,8 +14,10 @@ import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.backend.model.Professor;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.model.User;
+import de.hsos.kbse.backend.security.Role;
 import de.hsos.kbse.backend.service.AuthentificationService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 
@@ -27,8 +29,7 @@ import javax.inject.Inject;
 @DesignRoot
 public class RegistrationView extends VerticalLayout implements View{
 
-
-    @Inject
+    @EJB
     private AuthentificationService authentificationService;
 
     private TextField usernameField;
@@ -40,22 +41,24 @@ public class RegistrationView extends VerticalLayout implements View{
 
     private Navigator nav;
 
+    RegistrationView(){
+        Design.read(this);
+    }
+
     @Override
     public void enter(ViewChangeEvent event){
-
-
         nav = getUI().getNavigator();
-        this.registerButton.addClickListener((Button.ClickListener) event1 -> this.onRegisterClick());
-        this.abortButton.addClickListener((Button.ClickListener) event1 -> this.onAbortClick());
 
-        this.dropdown.addItems("Student", "Professor");
+        this.registerButton.addClickListener((Button.ClickListener) e -> this.onRegisterClick());
+        this.abortButton.addClickListener((Button.ClickListener) e -> this.onAbortClick());
+
     }
 
     private void onRegisterClick(){
-
-
-
-        nav.navigateTo("login");
+        Role role = Role.valueOf(((String)this.dropdown.getValue()).toUpperCase());
+        if(this.authentificationService.register(this.usernameField.getValue(),this.passwordField.getValue(), role)){
+            nav.navigateTo("login");
+        }
     }
 
     private void onAbortClick(){
