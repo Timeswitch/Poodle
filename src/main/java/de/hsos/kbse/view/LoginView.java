@@ -1,6 +1,8 @@
 package de.hsos.kbse.view;
 
 import javax.ejb.EJB;
+
+import com.vaadin.annotations.DesignRoot;
 import com.vaadin.cdi.CDIView;
 
 import com.vaadin.navigator.Navigator;
@@ -8,6 +10,7 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.backend.service.AuthentificationService;
 
 /**
@@ -15,7 +18,8 @@ import de.hsos.kbse.backend.service.AuthentificationService;
  */
 
 @CDIView("login")
-public class LoginView extends CustomComponent implements View{
+@DesignRoot
+public class LoginView extends VerticalLayout implements View{
 
 
     @EJB
@@ -27,6 +31,10 @@ public class LoginView extends CustomComponent implements View{
     private Button registerButton;
 
     private Navigator nav;
+
+    public LoginView(){
+        Design.read(this);
+    }
 
     @Override
     public void enter(ViewChangeEvent event) {
@@ -44,17 +52,17 @@ public class LoginView extends CustomComponent implements View{
         this.registerButton = new Button("Registrieren");
         this.registerButton.addClickListener((Button.ClickListener) event12 -> nav.navigateTo("register"));
 
-        VerticalLayout layout = new VerticalLayout();
-        setCompositionRoot(layout);
-        layout.setSizeFull();
-        layout.setMargin(true);
-        layout.setSpacing(true);
-
-        layout.addComponent(header);
-        layout.addComponent(this.usernameField);
-        layout.addComponent(this.passwordField);
-        layout.addComponent(this.loginButton);
-        layout.addComponent(this.registerButton);
+//        VerticalLayout layout = new VerticalLayout();
+//        setCompositionRoot(layout);
+//        layout.setSizeFull();
+//        layout.setMargin(true);
+//        layout.setSpacing(true);
+//
+//        layout.addComponent(header);
+//        layout.addComponent(this.usernameField);
+//        layout.addComponent(this.passwordField);
+//        layout.addComponent(this.loginButton);
+//        layout.addComponent(this.registerButton);
     }
 
 
