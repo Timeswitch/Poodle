@@ -2,6 +2,7 @@ package de.hsos.kbse.view;
 
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.cdi.CDIView;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
@@ -12,7 +13,6 @@ import de.hsos.kbse.backend.service.ExamService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import java.util.Collection;
 
 /**
@@ -25,6 +25,8 @@ public class AdminView extends VerticalLayout implements View {
 
     @EJB
     ExamService examService;
+
+    Navigator nav;
 
     Table examTable;
     Button newButton;
@@ -41,19 +43,41 @@ public class AdminView extends VerticalLayout implements View {
 
         this.nameField.setRequired(true);
         this.nameField.setRequiredError("Bitte geben Sie einen Namen ein");
+
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
 
+        this.nav = this.getUI().getNavigator();
+
         this.examTable.addContainerProperty("Name", String.class, null);
+        this.examTable.addContainerProperty("", CssLayout.class, null);
 
         Collection<Exam> exams = this.examService.findExams();
 
         for (Exam exam : exams) {
-            this.examTable.addItem(new Object[]{exam.getName()}, null);
+            this.examTable.addItem(new Object[]{exam.getName(),this.createButton(exam)}, null);
         }
 
+    }
+
+    public CssLayout createButton(Exam exam){
+        CssLayout layout = new CssLayout();
+
+        Button edit = new Button("Bearbeiten");
+        Button delete = new Button("Löschen");
+
+        edit.addClickListener(event -> {
+            this.nav.navigateTo("edit/"+exam.getId());
+        });
+
+        edit.addClickListener(event->{
+            //this.examService
+        });
+
+        layout.addComponent(edit);
+        return layout;
     }
 
     public void onTableClick(){

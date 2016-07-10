@@ -7,11 +7,8 @@ import de.hsos.kbse.backend.repository.ExamRepository;
 import de.hsos.kbse.backend.repository.ProfessorRepository;
 import de.hsos.kbse.backend.repository.StudentRepository;
 
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.sql.Date;
 import java.util.Collection;
 
 /**
