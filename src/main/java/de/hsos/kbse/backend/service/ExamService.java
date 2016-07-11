@@ -39,6 +39,10 @@ public class ExamService {
         return e;
     }
 
+    public void deleteExam(Exam e){
+        this.examRepository.remove(e);
+    }
+
     public void addStudent(Exam e, Student s){
         e.addStudent(s);
         this.examRepository.update(e);
