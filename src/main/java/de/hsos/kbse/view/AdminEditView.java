@@ -1,6 +1,7 @@
 package de.hsos.kbse.view;
 
 import com.vaadin.cdi.CDIView;
+import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.datefield.Resolution;
@@ -19,60 +20,67 @@ import java.util.TimeZone;
 @RolesAllowed({"PROFESSOR"})
 public class AdminEditView extends CustomComponent implements View{
 
-    private Button abortButton;
     private Button addButton;
     private PopupDateField date;
-    private TextField name;
+    private ComboBox name;
 
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.setSpacing(true);
         verticalLayout.setMargin(true);
 
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setSpacing(true);
-        HorizontalLayout horizontalLayout2 = new HorizontalLayout();
-        horizontalLayout2.setSpacing(true);
-
-        Label header = new Label("Slot hinzufügen");
+        Label header = new Label("Prüfung bearbeiten");
         header.setStyleName("h1");
+        verticalLayout.addComponent(header);
 
-        this.name = new TextField("Name");
+        //tabsheet
+        TabSheet tabsheet = new TabSheet();
+        verticalLayout.addComponent(tabsheet);
 
-        this.abortButton = new Button("Abbrechen");
-        this.abortButton.setStyleName("primary");
-        this.abortButton.addClickListener((Button.ClickListener)event1 -> this.onAbortClick());
+        //tab1
+        VerticalLayout examTab = new VerticalLayout();
+        examTab.setSpacing(true);
+
+        tabsheet.addTab(examTab, "Prüfungen");
+
+        Table examTable = new Table();
+        examTab.addComponent(examTable);
+
+        this.date = new PopupDateField();
+        this.date.setValue(new Date());
+        this.date.setImmediate(true);
+        this.date.setDateFormat("dd.MM.yyyy hh:mm");
+        this.date.setResolution(Resolution.MINUTE);
 
         this.addButton = new Button("Hinzufügen");
         this.addButton.setStyleName("primary");
-        this.addButton.addClickListener((Button.ClickListener)event2 -> this.onAddClick());
+        this.addButton.addClickListener(event2 -> this.onAddClick());
 
-        this.date = new PopupDateField("Termin");
-        this.date.setValue(new Date());
-        this.date.setImmediate(true);
-        this.date.setDateFormat("dd.MM.yyyy mm:hh");
-        this.date.setResolution(Resolution.MINUTE);
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        horizontalLayout.setSpacing(true);
+        horizontalLayout.addComponent(this.date);
+        horizontalLayout.addComponent(this.addButton);
+        examTab.addComponent(horizontalLayout);
 
-        horizontalLayout.addComponent(addButton);
-        horizontalLayout.addComponent(abortButton);
+        //tab2
+        VerticalLayout studentTab = new VerticalLayout();
+        studentTab.setSpacing(true);
+        tabsheet.addTab(studentTab, "Studenten");
 
-        horizontalLayout2.addComponent(name);
-        horizontalLayout2.addComponent(date);
+        Table studentTable = new Table();
+        studentTab.addComponent(studentTable);
 
-        verticalLayout.addComponent(header);
-        verticalLayout.addComponent(horizontalLayout2);
-        verticalLayout.addComponent(horizontalLayout);
+        this.name = new ComboBox("Name");
+        studentTab.addComponent(this.name);
 
         setCompositionRoot(verticalLayout);
-    }
-
-    private void onAbortClick(){
-
     }
 
     private void onAddClick(){
 
     }
+
 }
