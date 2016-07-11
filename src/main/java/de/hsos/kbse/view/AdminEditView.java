@@ -1,12 +1,16 @@
 package de.hsos.kbse.view;
 
 import com.vaadin.cdi.CDIView;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.*;
+import de.hsos.kbse.backend.model.Exam;
+import de.hsos.kbse.backend.service.ExamService;
 
 import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -15,18 +19,29 @@ import java.util.TimeZone;
  * Created by jan on 07.07.2016.
  */
 
-@CDIView("admin/edit")
+@CDIView(value = "admin/edit", supportsParameters = true)
 @RolesAllowed({"PROFESSOR"})
 public class AdminEditView extends CustomComponent implements View{
+
+    @EJB
+    private ExamService examService;
+
+    private Navigator nav;
 
     private Button abortButton;
     private Button addButton;
     private PopupDateField date;
     private TextField name;
 
+    private Exam exam;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+
+        this.nav = this.getUI().getNavigator();
+
+        this.exam = this.examService.findExam(Long.parseLong(event.getParameters()));
+
         VerticalLayout verticalLayout = new VerticalLayout();
         verticalLayout.setSpacing(true);
         verticalLayout.setMargin(true);
@@ -36,7 +51,7 @@ public class AdminEditView extends CustomComponent implements View{
         HorizontalLayout horizontalLayout2 = new HorizontalLayout();
         horizontalLayout2.setSpacing(true);
 
-        Label header = new Label("Slot hinzufügen");
+        Label header = new Label(exam.getName());
         header.setStyleName("h1");
 
         this.name = new TextField("Name");

@@ -59,4 +59,8 @@ public class ExamService {
         return this.examRepository.findByProfessor(p);
     }
 
+    public Exam findExam(Long id){
+        return this.examRepository.find(id);
+    }
+
 }
