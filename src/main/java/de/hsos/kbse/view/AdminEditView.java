@@ -48,7 +48,7 @@ public class AdminEditView extends CustomComponent implements View{
         verticalLayout.setSpacing(true);
         verticalLayout.setMargin(true);
 
-        Label header = new Label("Prüfung bearbeiten");
+        Label header = new Label("\""+exam.getName()+"\" bearbeiten");
         header.setStyleName("h1");
         verticalLayout.addComponent(header);
 
