@@ -54,11 +54,7 @@ public class AdminView extends VerticalLayout implements View {
         this.examTable.addContainerProperty("Name", String.class, null);
         this.examTable.addContainerProperty("", CssLayout.class, null);
 
-        Collection<Exam> exams = this.examService.findExams();
-
-        for (Exam exam : exams) {
-            this.examTable.addItem(new Object[]{exam.getName(),this.createButton(exam)}, null);
-        }
+        this.refreshTable();
 
     }
 
@@ -69,15 +65,29 @@ public class AdminView extends VerticalLayout implements View {
         Button delete = new Button("Löschen");
 
         edit.addClickListener(event -> {
-            this.nav.navigateTo("edit/"+exam.getId());
+            this.nav.navigateTo("admin/edit/"+exam.getId());
+            this.refreshTable();
         });
 
-        edit.addClickListener(event->{
-            //this.examService
+        delete.addClickListener(event->{
+            this.examService.deleteExam(exam);
+            this.refreshTable();
         });
 
         layout.addComponent(edit);
+        layout.addComponent(delete);
+
         return layout;
+    }
+
+    public void refreshTable(){
+        this.examTable.removeAllItems();
+
+        Collection<Exam> exams = this.examService.findExams();
+
+        for (Exam exam : exams) {
+            this.examTable.addItem(new Object[]{exam.getName(),this.createButton(exam)}, null);
+        }
     }
 
     public void onTableClick(){
@@ -88,5 +98,7 @@ public class AdminView extends VerticalLayout implements View {
         Exam e = this.examService.createExam(this.nameField.getValue());
         this.examTable.addItem(new Object[]{e.getName()},null);
         this.nameField.setValue("");
+
+        this.refreshTable();
     }
 }

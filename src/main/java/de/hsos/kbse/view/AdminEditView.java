@@ -15,9 +15,9 @@ import java.util.TimeZone;
  * Created by jan on 07.07.2016.
  */
 
-@CDIView("createSlot")
+@CDIView("admin/edit")
 @RolesAllowed({"PROFESSOR"})
-public class CreateSlotView extends CustomComponent implements View{
+public class AdminEditView extends CustomComponent implements View{
 
     private Button abortButton;
     private Button addButton;
