@@ -21,7 +21,8 @@ public class CreateSlotView extends CustomComponent implements View{
 
     private Button abortButton;
     private Button addButton;
-    private InlineDateField date;
+    private PopupDateField date;
+    private TextField name;
 
 
     @Override
@@ -32,30 +33,36 @@ public class CreateSlotView extends CustomComponent implements View{
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.setSpacing(true);
+        HorizontalLayout horizontalLayout2 = new HorizontalLayout();
+        horizontalLayout2.setSpacing(true);
 
         Label header = new Label("Slot hinzufügen");
         header.setStyleName("h1");
 
-        abortButton = new Button("Abbrechen");
-        abortButton.setStyleName("primary");
-        abortButton.addClickListener((Button.ClickListener)event1 -> this.onAbortClick());
+        this.name = new TextField("Name");
 
-        addButton = new Button("Hinzufügen");
-        addButton.setStyleName("primary");
-        addButton.addClickListener((Button.ClickListener)event2 -> this.onAddClick());
+        this.abortButton = new Button("Abbrechen");
+        this.abortButton.setStyleName("primary");
+        this.abortButton.addClickListener((Button.ClickListener)event1 -> this.onAbortClick());
 
-        date = new InlineDateField();
-        date.setValue(new Date());
-        date.setImmediate(true);
-        date.setTimeZone(TimeZone.getTimeZone("UTC"));
-        date.setLocale(Locale.GERMAN);
-        date.setResolution(Resolution.MINUTE);
+        this.addButton = new Button("Hinzufügen");
+        this.addButton.setStyleName("primary");
+        this.addButton.addClickListener((Button.ClickListener)event2 -> this.onAddClick());
+
+        this.date = new PopupDateField("Termin");
+        this.date.setValue(new Date());
+        this.date.setImmediate(true);
+        this.date.setDateFormat("dd.MM.yyyy mm:hh");
+        this.date.setResolution(Resolution.MINUTE);
 
         horizontalLayout.addComponent(addButton);
         horizontalLayout.addComponent(abortButton);
 
+        horizontalLayout2.addComponent(name);
+        horizontalLayout2.addComponent(date);
+
         verticalLayout.addComponent(header);
-        verticalLayout.addComponent(date);
+        verticalLayout.addComponent(horizontalLayout2);
         verticalLayout.addComponent(horizontalLayout);
 
         setCompositionRoot(verticalLayout);
