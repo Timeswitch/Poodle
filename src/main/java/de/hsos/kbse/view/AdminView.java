@@ -65,7 +65,7 @@ public class AdminView extends VerticalLayout implements View {
         Button delete = new Button("Löschen");
 
         edit.addClickListener(event -> {
-            this.nav.navigateTo("edit/"+exam.getId());
+            this.nav.navigateTo("admin/edit/"+exam.getId());
             this.refreshTable();
         });
 
