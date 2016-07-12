@@ -2,6 +2,7 @@ package de.hsos.kbse.backend.service;
 
 import de.hsos.kbse.backend.model.Exam;
 import de.hsos.kbse.backend.model.Professor;
+import de.hsos.kbse.backend.model.Slot;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.repository.ExamRepository;
 import de.hsos.kbse.backend.repository.ProfessorRepository;
@@ -46,6 +47,16 @@ public class ExamService {
     public void addStudent(Exam e, Student s){
         e.addStudent(s);
         this.examRepository.update(e);
+    }
+
+    public void addSlot(Exam e, Slot s){
+        e.addSlot(s);
+
+        this.examRepository.update(e);
+    }
+
+    public void refresh(Exam e){
+        this.examRepository.refresh(e);
     }
 
     public void removeStudent(Exam e, Student s){

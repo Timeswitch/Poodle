@@ -8,10 +8,13 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.*;
 import de.hsos.kbse.backend.model.Exam;
+import de.hsos.kbse.backend.model.Slot;
 import de.hsos.kbse.backend.service.ExamService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import java.sql.Time;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -33,6 +36,8 @@ public class AdminEditView extends CustomComponent implements View{
     private Button addButton;
     private PopupDateField date;
     private ComboBox name;
+    private Table slotTable;
+    private Table studentTable;
 
     private Exam exam;
 
@@ -62,8 +67,12 @@ public class AdminEditView extends CustomComponent implements View{
 
         tabsheet.addTab(examTab, "Prüfungen");
 
-        Table examTable = new Table();
-        examTab.addComponent(examTable);
+        this.slotTable = new Table();
+        this.slotTable.addContainerProperty("Datum",String.class,null);
+        this.slotTable.addContainerProperty("Uhrzeit",String.class,null);
+        this.slotTable.addContainerProperty("Student",String.class,null);
+
+        examTab.addComponent(slotTable);
 
         this.date = new PopupDateField();
         this.date.setValue(new Date());
@@ -86,16 +95,40 @@ public class AdminEditView extends CustomComponent implements View{
         studentTab.setSpacing(true);
         tabsheet.addTab(studentTab, "Studenten");
 
-        Table studentTable = new Table();
+        studentTable = new Table();
         studentTab.addComponent(studentTable);
 
         this.name = new ComboBox("Name");
         studentTab.addComponent(this.name);
 
         setCompositionRoot(verticalLayout);
+
+        this.refreshData(false);
+    }
+
+    private void refreshData(){
+        this.refreshData(true);
+    }
+
+    private void refreshData(boolean fetch){
+        this.examService.refresh(this.exam);
+
+        this.exam.getSlots().forEach(slot -> {
+            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate(),slot.getTime().toLocalTime(),slot.getStudent()},null);
+        });
     }
 
     private void onAddClick(){
+        Slot s = new Slot();
+
+        Date date = this.date.getValue();
+
+        s.setTime(new Time(date.getTime()));
+        s.setDate(new java.sql.Date(date.getTime()));
+
+        this.examService.addSlot(this.exam,s);
+
+        this.date.setValue(new Date());
 
     }
 

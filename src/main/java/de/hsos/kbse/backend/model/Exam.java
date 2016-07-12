@@ -84,6 +84,10 @@ public class Exam extends Model{
         }
     }
 
+    public void addSlot(Slot s){
+        this.getSlots().add(s);
+    }
+
     public void removeStudent(Student e){
         this.students.remove(e);
     }
