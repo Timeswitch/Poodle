@@ -116,7 +116,8 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.slotTable.removeAllItems();
         this.exam.getSlots().forEach(slot -> {
-            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate(),slot.getTime().toLocalTime(),slot.getStudent()},null);
+
+            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate().toString(),slot.getTime().toLocalTime().toString(),slot.getStudent()},null);
         });
 
         this.studentTable.removeAllItems();
@@ -133,11 +134,10 @@ public class AdminEditView extends CustomComponent implements View{
         s.setTime(new Time(date.getTime()));
         s.setDate(new java.sql.Date(date.getTime()));
 
-        this.examService.addSlot(this.exam,s);
-
         this.date.setValue(new Date());
 
-        this.refreshData();
+        this.exam = this.examService.addSlot(this.exam,s);
+        this.refreshData(false);
 
     }
 

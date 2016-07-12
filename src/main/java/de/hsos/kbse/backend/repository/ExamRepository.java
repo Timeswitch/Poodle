@@ -2,6 +2,7 @@ package de.hsos.kbse.backend.repository;
 
 import de.hsos.kbse.backend.model.Exam;
 import de.hsos.kbse.backend.model.Professor;
+import de.hsos.kbse.backend.model.Slot;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;

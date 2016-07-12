@@ -66,8 +66,7 @@ public abstract class GenericRepository<T extends Model> implements Serializable
     }
     
     public T update(T entity){
-        T e = this.em.merge(entity);
-        return e;
+        return this.em.merge(entity);
     }
     
     public void remove(T entity){
@@ -77,6 +76,10 @@ public abstract class GenericRepository<T extends Model> implements Serializable
 
     public void refresh(T entity){
         this.em.refresh(entity);
+    }
+
+    public T reattach(T entity){
+        return this.find(this.getPrimaryKey(entity));
     }
     
     public Collection<T> findAll(){

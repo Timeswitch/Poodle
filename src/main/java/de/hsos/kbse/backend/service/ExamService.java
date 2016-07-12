@@ -44,24 +44,32 @@ public class ExamService {
         this.examRepository.remove(e);
     }
 
-    public void addStudent(Exam e, Student s){
+    public Exam addStudent(Exam e, Student s){
+        e = this.examRepository.reattach(e);
         e.addStudent(s);
         this.examRepository.update(e);
+
+        return e;
     }
 
-    public void addSlot(Exam e, Slot s){
+    public Exam addSlot(Exam e, Slot s){
+        e = this.examRepository.reattach(e);
         e.addSlot(s);
-
         this.examRepository.update(e);
+
+        return e;
     }
 
-    public void refresh(Exam e){
-        this.examRepository.refresh(e);
+    public Exam refresh(Exam e){
+        return this.examRepository.reattach(e);
     }
 
-    public void removeStudent(Exam e, Student s){
+    public Exam removeStudent(Exam e, Student s){
+        e = this.examRepository.reattach(e);
         e.removeStudent(s);
         this.examRepository.update(e);
+
+        return e;
     }
 
     public Collection<Exam> findExams(){
