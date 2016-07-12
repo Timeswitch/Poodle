@@ -10,9 +10,14 @@ import com.vaadin.ui.*;
 import de.hsos.kbse.backend.model.Exam;
 import de.hsos.kbse.backend.model.Slot;
 import de.hsos.kbse.backend.service.ExamService;
+import de.hsos.kbse.backend.service.StudentService;
+import de.hsos.kbse.view.utils.StudentAutocompleteSuggestionProvider;
+import eu.maxschuster.vaadin.autocompletetextfield.AutocompleteTextField;
+import eu.maxschuster.vaadin.autocompletetextfield.shared.ScrollBehavior;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import java.sql.Time;
 import java.util.Collection;
 import java.util.Date;
@@ -30,12 +35,18 @@ public class AdminEditView extends CustomComponent implements View{
     @EJB
     private ExamService examService;
 
+    @EJB
+    private StudentService studentService;
+
+    @Inject
+    StudentAutocompleteSuggestionProvider studentAutocompleteSuggestionProvider;
+
     private Navigator nav;
 
     private Button abortButton;
     private Button addButton;
     private PopupDateField date;
-    private ComboBox name;
+    private AutocompleteTextField name;
     private Table slotTable;
     private Table studentTable;
 
@@ -65,7 +76,7 @@ public class AdminEditView extends CustomComponent implements View{
         VerticalLayout examTab = new VerticalLayout();
         examTab.setSpacing(true);
 
-        tabsheet.addTab(examTab, "Prüfungen");
+        tabsheet.addTab(examTab, "Termine");
 
         this.slotTable = new Table();
         this.slotTable.addContainerProperty("Datum",String.class,null);
@@ -101,7 +112,14 @@ public class AdminEditView extends CustomComponent implements View{
         this.studentTable.setSizeFull();
         studentTab.addComponent(studentTable);
 
-        this.name = new ComboBox("Name");
+        this.name = new AutocompleteTextField("Name");
+        this.name.setCache(true);
+        this.name.setDelay(150);
+        this.name.setItemAsHtml(false);
+        this.name.setMinChars(3);
+        this.name.setScrollBehavior(ScrollBehavior.NONE);
+        this.name.setSuggestionLimit(0);
+        this.name.setSuggestionProvider(this.studentAutocompleteSuggestionProvider);
         studentTab.addComponent(this.name);
 
         setCompositionRoot(verticalLayout);

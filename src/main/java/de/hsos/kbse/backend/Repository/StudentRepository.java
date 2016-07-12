@@ -13,4 +13,6 @@ public class StudentRepository extends GenericUserRepository<Student> {
     public StudentRepository(){
         super(Student.class);
     }
+
+
 }

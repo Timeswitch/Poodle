@@ -9,11 +9,14 @@ import javax.persistence.*;
  */
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance
+@DiscriminatorColumn(name = "role")
 @Table(name="POODLE_USER")
 @NamedQueries({
         @NamedQuery(name="User.findByEmail",
-                    query="SELECT u FROM User u WHERE u.email = :email")
+                    query="SELECT u FROM User u WHERE u.email = :email"),
+        @NamedQuery(name="User.search",
+                    query="SELECT u FROM User u WHERE u.email LIKE :query AND u.role = :type")
 })
 public abstract class User extends Model{
     @Id
@@ -24,8 +27,12 @@ public abstract class User extends Model{
 
     protected String password;
 
+//    @Enumerated(EnumType.STRING)
+//    protected Role role;
+
+    @Column(name = "role", insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
-    protected Role role;
+    private Role role;
 
     public User(){}
 

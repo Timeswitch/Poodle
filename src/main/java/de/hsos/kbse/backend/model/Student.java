@@ -14,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Vetoed
+@DiscriminatorValue("STUDENT")
 public class Student extends User{
 
     @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST)
@@ -21,7 +22,7 @@ public class Student extends User{
 
     public Student(){
         super();
-        this.role = Role.STUDENT;
+//        this.role = Role.STUDENT;
     }
 
     public Student(String email, String password){

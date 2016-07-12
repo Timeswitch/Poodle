@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Vetoed
+@DiscriminatorValue("PROFESSOR")
 public class Professor extends User implements Serializable{
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "professor")
@@ -20,7 +21,7 @@ public class Professor extends User implements Serializable{
 
     public Professor(){
         super();
-        this.role = Role.PROFESSOR;
+//        this.role = Role.PROFESSOR;
     }
 
     public Professor(String email, String password){
