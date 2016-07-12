@@ -74,6 +74,10 @@ public abstract class GenericRepository<T extends Model> implements Serializable
         T merged = this.em.merge(entity);
         this.em.remove(merged);
     }
+
+    public void refresh(T entity){
+        this.em.refresh(entity);
+    }
     
     public Collection<T> findAll(){
         CriteriaQuery<T> query = this.em.getCriteriaBuilder().createQuery(this.type);

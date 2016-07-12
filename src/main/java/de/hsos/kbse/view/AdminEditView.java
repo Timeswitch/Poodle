@@ -96,6 +96,7 @@ public class AdminEditView extends CustomComponent implements View{
         tabsheet.addTab(studentTab, "Studenten");
 
         studentTable = new Table();
+        studentTable.addContainerProperty("Name",String.class,null);
         studentTab.addComponent(studentTable);
 
         this.name = new ComboBox("Name");
@@ -113,8 +114,14 @@ public class AdminEditView extends CustomComponent implements View{
     private void refreshData(boolean fetch){
         this.examService.refresh(this.exam);
 
+        this.slotTable.removeAllItems();
         this.exam.getSlots().forEach(slot -> {
             this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate(),slot.getTime().toLocalTime(),slot.getStudent()},null);
+        });
+
+        this.studentTable.removeAllItems();
+        this.exam.getStudents().forEach(student -> {
+            this.studentTable.addItem(new Object[]{student.getEmail()});
         });
     }
 
@@ -129,6 +136,8 @@ public class AdminEditView extends CustomComponent implements View{
         this.examService.addSlot(this.exam,s);
 
         this.date.setValue(new Date());
+
+        this.refreshData();
 
     }
 
