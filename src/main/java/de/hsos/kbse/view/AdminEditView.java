@@ -71,6 +71,7 @@ public class AdminEditView extends CustomComponent implements View{
         this.slotTable.addContainerProperty("Datum",String.class,null);
         this.slotTable.addContainerProperty("Uhrzeit",String.class,null);
         this.slotTable.addContainerProperty("Student",String.class,null);
+        this.slotTable.setSizeFull();
 
         examTab.addComponent(slotTable);
 
@@ -95,8 +96,9 @@ public class AdminEditView extends CustomComponent implements View{
         studentTab.setSpacing(true);
         tabsheet.addTab(studentTab, "Studenten");
 
-        studentTable = new Table();
-        studentTable.addContainerProperty("Name",String.class,null);
+        this.studentTable = new Table();
+        this.studentTable.addContainerProperty("Name",String.class,null);
+        this.studentTable.setSizeFull();
         studentTab.addComponent(studentTable);
 
         this.name = new ComboBox("Name");
