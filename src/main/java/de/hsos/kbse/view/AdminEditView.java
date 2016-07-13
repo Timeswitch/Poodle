@@ -160,7 +160,7 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.studentTable.removeAllItems();
         this.exam.getStudents().forEach(student -> {
-            this.studentTable.addItem(new Object[]{student.getEmail()});
+            this.studentTable.addItem(new Object[]{student.getEmail()},null);
         });
     }
 
