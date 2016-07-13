@@ -114,6 +114,7 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.studentTable = new Table();
         this.studentTable.addContainerProperty("Name",String.class,null);
+        this.studentTable.addContainerProperty("",Button.class,null);
         this.studentTable.setSizeFull();
         studentTab.addComponent(studentTable);
 
@@ -160,7 +161,14 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.studentTable.removeAllItems();
         this.exam.getStudents().forEach(student -> {
-            this.studentTable.addItem(new Object[]{student.getEmail()},null);
+            Button remove = new Button("Entfernen");
+
+            remove.addClickListener(event -> {
+                this.exam = this.examService.removeStudent(this.exam,student);
+                this.refreshData(false);
+            });
+
+            this.studentTable.addItem(new Object[]{student.getEmail(),remove},null);
         });
     }
 
