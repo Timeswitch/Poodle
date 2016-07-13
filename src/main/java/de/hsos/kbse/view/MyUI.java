@@ -4,7 +4,7 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.ui.UI;
+import com.vaadin.ui.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.cdi.CDIViewProvider;
 
@@ -28,7 +28,23 @@ public class MyUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        Navigator navigator = new Navigator(this, this);
+        VerticalLayout verticalLayout = new VerticalLayout();
+        VerticalLayout verticalLayout2 = new VerticalLayout();
+        VerticalLayout verticalLayout3 = new VerticalLayout();
+
+        Label label = new Label("Poodle");
+        label.addStyleName("h1");
+        label.setWidth(null);
+
+        verticalLayout2.addComponent(label);
+        verticalLayout2.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+        verticalLayout.addComponent(verticalLayout2);
+
+        verticalLayout.addComponent(verticalLayout3);
+
+        setContent(verticalLayout);
+
+        Navigator navigator = new Navigator(this, verticalLayout3);
         navigator.addProvider(viewProvider);
         navigator.navigateTo("login");
     }
