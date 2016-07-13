@@ -49,6 +49,7 @@ public class AdminEditView extends CustomComponent implements View{
     private AutocompleteTextField name;
     private Table slotTable;
     private Table studentTable;
+    private Button addStudentButton;
 
     private Exam exam;
 
@@ -78,6 +79,8 @@ public class AdminEditView extends CustomComponent implements View{
 
         tabsheet.addTab(examTab, "Termine");
 
+        Label slotLabel = new Label("Termin:");
+
         this.slotTable = new Table();
         this.slotTable.addContainerProperty("Datum",String.class,null);
         this.slotTable.addContainerProperty("Uhrzeit",String.class,null);
@@ -98,8 +101,10 @@ public class AdminEditView extends CustomComponent implements View{
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.setSpacing(true);
+        horizontalLayout.addComponent(slotLabel);
         horizontalLayout.addComponent(this.date);
         horizontalLayout.addComponent(this.addButton);
+        horizontalLayout.setComponentAlignment(slotLabel,Alignment.MIDDLE_LEFT);
         examTab.addComponent(horizontalLayout);
 
         //tab2
@@ -112,7 +117,15 @@ public class AdminEditView extends CustomComponent implements View{
         this.studentTable.setSizeFull();
         studentTab.addComponent(studentTable);
 
-        this.name = new AutocompleteTextField("Name");
+        HorizontalLayout horizontalLayout1 = new HorizontalLayout();
+        horizontalLayout1.setSpacing(true);
+        studentTab.addComponent(horizontalLayout1);
+
+        Label studentLable = new Label("Student:");
+        horizontalLayout1.addComponent(studentLable);
+        horizontalLayout1.setComponentAlignment(studentLable,Alignment.MIDDLE_LEFT);
+
+        this.name = new AutocompleteTextField();
         this.name.setCache(true);
         this.name.setDelay(150);
         this.name.setItemAsHtml(false);
@@ -120,7 +133,12 @@ public class AdminEditView extends CustomComponent implements View{
         this.name.setScrollBehavior(ScrollBehavior.NONE);
         this.name.setSuggestionLimit(0);
         this.name.setSuggestionProvider(this.studentAutocompleteSuggestionProvider);
-        studentTab.addComponent(this.name);
+        horizontalLayout1.addComponent(this.name);
+
+        this.addStudentButton = new Button("Hinzufügen");
+        this.addStudentButton.addClickListener(event1 -> this.onAddStudentButtonClick());
+        this.addStudentButton.setStyleName("primary");
+        horizontalLayout1.addComponent(this.addStudentButton);
 
         setCompositionRoot(verticalLayout);
 
@@ -158,6 +176,10 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.exam = this.examService.addSlot(this.exam,s);
         this.refreshData(false);
+
+    }
+
+    private void onAddStudentButtonClick(){
 
     }
 
