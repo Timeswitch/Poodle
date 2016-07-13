@@ -14,9 +14,9 @@ import javax.persistence.*;
 @Table(name="POODLE_USER")
 @NamedQueries({
         @NamedQuery(name="User.findByEmail",
-                    query="SELECT u FROM User u WHERE u.email = :email"),
+                    query="SELECT u FROM User u WHERE u.email = :email AND (:type IS null OR u.role = :type)"),
         @NamedQuery(name="User.search",
-                    query="SELECT u FROM User u WHERE u.email LIKE :query AND u.role = :type")
+                    query="SELECT u FROM User u WHERE u.email LIKE :query AND (:type IS null OR u.role = :type)")
 })
 public abstract class User extends Model{
     @Id

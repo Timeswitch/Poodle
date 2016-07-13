@@ -180,6 +180,14 @@ public class AdminEditView extends CustomComponent implements View{
     }
 
     private void onAddStudentButtonClick(){
+        String email = this.name.getValue();
+        if("".equals(email)){
+            return;
+        }
+
+        this.exam = this.examService.addStudent(this.exam,email);
+        this.refreshData(false);
+        this.name.setValue("");
 
     }
 

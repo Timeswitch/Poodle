@@ -29,7 +29,7 @@ public class Exam extends Model{
     @ElementCollection(fetch = FetchType.EAGER)
     private List<Slot> slots = new ArrayList<>();
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Professor professor;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

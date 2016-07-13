@@ -19,25 +19,33 @@ public class GenericUserRepository<T extends User> extends GenericRepository<T> 
     }
 
     public T findByEmail(String email){
-        TypedQuery<T> query = this.em.createNamedQuery("User.findByEmail",this.type);
+        TypedQuery<User> query = this.em.createNamedQuery("User.findByEmail",User.class);
         query.setParameter("email", email);
-        List<T> res = query.getResultList();
+        query.setParameter("type",this.getType());
+        List<User> res = query.getResultList();
 
         if(!res.isEmpty()){
-            return res.get(0);
+            return (T)res.get(0);
         }
         return null;
     }
 
     public Collection<T> search(String query){
-
-        Role type = Role.valueOf(this.type.getAnnotation(DiscriminatorValue.class).value());
-
         TypedQuery<User> q = this.em.createNamedQuery("User.search",User.class);
         q.setParameter("query", "%" + query + "%");
-        q.setParameter("type", type);
+        q.setParameter("type",this.getType());
         Collection<T> res = (Collection<T>) ((Collection<?>) q.getResultList());
 
         return res;
+    }
+
+    public Role getType(){
+        DiscriminatorValue dv = this.type.getAnnotation(DiscriminatorValue.class);
+        Role type = null;
+        if(dv != null){
+            type = Role.valueOf(dv.value());
+        }
+
+        return type;
     }
 }

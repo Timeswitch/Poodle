@@ -44,14 +44,6 @@ public class ExamService {
         this.examRepository.remove(e);
     }
 
-    public Exam addStudent(Exam e, Student s){
-        e = this.examRepository.reattach(e);
-        e.addStudent(s);
-        this.examRepository.update(e);
-
-        return e;
-    }
-
     public Exam addSlot(Exam e, Slot s){
         e = this.examRepository.reattach(e);
         e.addSlot(s);
@@ -60,8 +52,19 @@ public class ExamService {
         return e;
     }
 
-    public Exam refresh(Exam e){
-        return this.examRepository.reattach(e);
+    public Exam addStudent(Exam e, Student s){
+        e = this.examRepository.reattach(e);
+        s = this.studentRepository.reattach(s);
+
+        e.addStudent(s);
+        this.examRepository.update(e);
+
+        return e;
+    }
+
+    public Exam addStudent(Exam e, String email){
+        Student s = this.studentRepository.findByEmail(email);
+        return this.addStudent(e,s);
     }
 
     public Exam removeStudent(Exam e, Student s){
@@ -80,6 +83,10 @@ public class ExamService {
 
     public Exam findExam(Long id){
         return this.examRepository.find(id);
+    }
+
+    public Exam refresh(Exam e){
+        return this.examRepository.reattach(e);
     }
 
 }

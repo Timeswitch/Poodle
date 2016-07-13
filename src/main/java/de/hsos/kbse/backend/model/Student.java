@@ -17,7 +17,7 @@ import java.util.List;
 @DiscriminatorValue("STUDENT")
 public class Student extends User{
 
-    @ManyToMany(mappedBy = "students", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "students")
     private List<Exam> exams;
 
     public Student(){
