@@ -6,6 +6,7 @@ import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -14,9 +15,12 @@ import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.service.AuthentificationService;
 import de.hsos.kbse.view.MyUI;
+import eu.maxschuster.vaadin.autocompletetextfield.AutocompleteTextField;
+import eu.maxschuster.vaadin.autocompletetextfield.shared.ScrollBehavior;
 
 import javax.ejb.EJB;
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by jan on 06.07.2016.
@@ -24,39 +28,62 @@ import javax.persistence.*;
 
 @CDIView("exams")
 @DesignRoot
-public class ExamView extends VerticalLayout implements View{
+public class ExamView extends CustomComponent implements View{
 
     private Navigator nav;
 
-    private Table datatable;
+    private Table examTable;
+
+    private Table slotTable;
 
     private Button logoutButton;
 
     @EJB
     private AuthentificationService authentificationService;
 
-    public ExamView(){
+    /*public ExamView(){
         Design.read(this);
-    }
+    }*/
 
     @Override
     public void enter(ViewChangeEvent event) {
 
-        nav = getUI().getNavigator();
+        this.nav = getUI().getNavigator();
 
-        datatable.addContainerProperty("Name", String.class, null);
-        datatable.addContainerProperty("Dozent", String.class, null);
-        datatable.addContainerProperty("Datum", String.class, null);
-        datatable.addContainerProperty("Uhrzeit", String.class, null);
+        VerticalLayout verticalLayout = new VerticalLayout();
+        verticalLayout.setSpacing(true);
+        verticalLayout.setMargin(true);
 
-        datatable.addItem(new Object[]{"OOAD", "Rossmann", "28.7.16", "14:00"},1);
-        datatable.addItem(new Object[]{"KBSE", "Rossmann", "27.7.16", "13:00"},2);
-        datatable.addItem(new Object[]{"Grundlagen Programmieren", "Rossmann", "26.7.16", "12:00"},3);
-        datatable.addItem(new Object[]{"Fortgeschrittene Programmierung", "Rossmann", "25.7.16", "11:00"},4);
+        //tabsheet
+        TabSheet tabsheet = new TabSheet();
+        verticalLayout.addComponent(tabsheet);
 
-        datatable.setPageLength(datatable.size());
+        //tab1
+        VerticalLayout examTab = new VerticalLayout();
+        examTab.setSpacing(true);
 
-        this.logoutButton.addClickListener((Button.ClickListener) event1 -> this.onLogoutClick());
+        tabsheet.addTab(examTab, "Prüfungen");
+
+        this.examTable = new Table();
+
+
+        this.examTable.setSizeFull();
+
+        examTab.addComponent(examTable);
+
+
+        //tab2
+        VerticalLayout studentTab = new VerticalLayout();
+        studentTab.setSpacing(true);
+        tabsheet.addTab(studentTab, "Studenten");
+
+        this.slotTable = new Table();
+
+        this.slotTable.setSizeFull();
+        studentTab.addComponent(this.slotTable);
+
+
+        setCompositionRoot(verticalLayout);
 
     }
 
