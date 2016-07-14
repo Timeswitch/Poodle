@@ -98,5 +98,12 @@ public class Exam extends Model{
 
     public void removeStudent(Student e){
         this.students.remove(e);
+
+        this.getSlots().forEach(slot -> {
+            if(e.equals(slot.getStudent())){
+                slot.setStudent(null);
+            }
+
+        });
     }
 }
