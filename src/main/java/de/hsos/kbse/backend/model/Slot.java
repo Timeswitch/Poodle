@@ -14,6 +14,12 @@ import java.sql.Time;
  */
 @Vetoed
 @Entity
+@NamedQueries({
+    @NamedQuery(
+            name="Slot.findByStudent",
+            query="SELECT s FROM Slot s WHERE s.student.id = :id"
+    )
+})
 public class Slot extends Model {
 
     @Id
