@@ -13,7 +13,7 @@ import com.vaadin.ui.declarative.Design;
  * Created by jan on 14.07.2016.
  */
 
-@CDIView("student/exam")
+@CDIView(value = "student/exam", supportsParameters = true)
 @DesignRoot
 public class StudentExamView extends VerticalLayout implements View{
 

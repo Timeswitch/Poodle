@@ -80,6 +80,9 @@ public class StudentView extends CustomComponent implements View{
         this.examTable.addContainerProperty("Professor",String.class,null);
 
         this.examTable.setSizeFull();
+        this.examTable.setSelectable(true);
+        this.examTable.setImmediate(true);
+        this.examTable.addValueChangeListener(e -> this.onExamTableClick());
 
         examTab.addComponent(examTable);
 
@@ -115,7 +118,7 @@ public class StudentView extends CustomComponent implements View{
             String name = exam.getName();
             String prof = exam.getProfessor().getEmail();
 
-            this.examTable.addItem(new Object[]{name,prof},null);
+            this.examTable.addItem(new Object[]{name,prof},exam.getId());
 
         });
 
@@ -134,6 +137,12 @@ public class StudentView extends CustomComponent implements View{
             this.slotTable.addItem(new Object[]{exam,date,time,unregister},null);
         });
 
+    }
+
+    protected void onExamTableClick(){
+        Long id = (Long)this.examTable.getValue();
+
+        this.nav.navigateTo("student/exam/"+id);
     }
 
     protected void onLogoutClick(){
