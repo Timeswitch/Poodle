@@ -59,7 +59,7 @@ public class LoginView extends VerticalLayout implements View{
                     nav.navigateTo("admin");
                     break;
                 case STUDENT:
-                    nav.navigateTo("exams");
+                    nav.navigateTo("student");
                     break;
             }
         }

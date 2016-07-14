@@ -54,6 +54,10 @@ public class StudentView extends CustomComponent implements View{
         verticalLayout.setSpacing(true);
         verticalLayout.setMargin(true);
 
+        Label header = new Label("Angemeldete Prüfungen");
+        header.addStyleName("h1");
+        verticalLayout.addComponent(header);
+
         //tabsheet
         TabSheet tabsheet = new TabSheet();
         verticalLayout.addComponent(tabsheet);
@@ -75,14 +79,14 @@ public class StudentView extends CustomComponent implements View{
         //tab2
         VerticalLayout studentTab = new VerticalLayout();
         studentTab.setSpacing(true);
-        tabsheet.addTab(studentTab, "Studenten");
+        tabsheet.addTab(studentTab, "Termine");
 
         this.slotTable = new Table();
 
         this.slotTable.setSizeFull();
         studentTab.addComponent(this.slotTable);
 
-
+        this.logoutButton = new Button("Logout");
         setCompositionRoot(verticalLayout);
 
     }
