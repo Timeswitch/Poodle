@@ -5,9 +5,17 @@ import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.declarative.Design;
+import de.hsos.kbse.backend.model.Exam;
+import de.hsos.kbse.backend.model.Student;
+import de.hsos.kbse.backend.service.SessionService;
+import de.hsos.kbse.backend.service.StudentService;
+
+import javax.ejb.EJB;
+import javax.inject.Inject;
 
 /**
  * Created by jan on 14.07.2016.
@@ -21,6 +29,16 @@ public class StudentExamView extends VerticalLayout implements View{
 
     private Navigator nav;
 
+    private Long examId;
+    private Student student;
+    private Exam exam;
+
+    @EJB
+    private StudentService studentService;
+
+    @Inject
+    private SessionService sessionService;
+
     public StudentExamView(){
         Design.read(this);
     }
@@ -29,6 +47,39 @@ public class StudentExamView extends VerticalLayout implements View{
     public void enter(ViewChangeListener.ViewChangeEvent event){
         nav = getUI().getNavigator();
 
+        this.student = (Student)this.sessionService.getCurrentUser();
+        this.examId = Long.parseLong(event.getParameters());
 
+        this.examTable.addContainerProperty("Datum",String.class,null);
+        this.examTable.addContainerProperty("Uhrzeit",String.class,null);
+        this.examTable.addContainerProperty("",Button.class,null);
+
+        this.refreshData(true);
+
+    }
+
+    private void refreshData(boolean fetch){
+        if(fetch){
+            this.student = this.studentService.refresh(this.student);
+            this.exam = null;
+
+            this.student.getExams().forEach(exam -> {
+                if(exam.getId().equals(this.examId)){
+                    this.exam = exam;
+                }
+            });
+        }
+
+        this.examTable.removeAllItems();
+        if(this.exam != null){
+            this.exam.getSlots().forEach(slot -> {
+                String date = slot.getDate().toLocalDate().toString();
+                String time = slot.getTime().toLocalTime().toString();
+
+                Button action = new Button("Eintragen");
+
+                this.examTable.addItem(new Object[]{date,time,action},null);
+            });
+        }
     }
 }
