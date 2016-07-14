@@ -1,8 +1,9 @@
 package de.hsos.kbse.backend.model;
 
+import org.hibernate.annotations.Parent;
+
 import javax.enterprise.inject.Vetoed;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Date;
@@ -11,9 +12,13 @@ import java.sql.Time;
 /**
  * Created by jan on 26.06.2016.
  */
-@Embeddable
 @Vetoed
-public class Slot implements Serializable {
+@Entity
+public class Slot extends Model {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    Long id;
 
     @OneToOne
     Student student;
@@ -23,6 +28,14 @@ public class Slot implements Serializable {
 
     @NotNull
     Time time;
+
+    @ManyToOne
+    @NotNull
+    Exam exam;
+
+    public Long getId(){
+        return this.id;
+    }
 
     public Student getStudent() {
         return student;
@@ -46,5 +59,13 @@ public class Slot implements Serializable {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    public void setExam(Exam exam){
+        this.exam = exam;
+    }
+
+    public Exam getExam(){
+        return this.exam;
     }
 }

@@ -26,7 +26,7 @@ public class Exam extends Model{
     @NotEmpty
     private String name;
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "exam", fetch = FetchType.EAGER)
     private List<Slot> slots = new ArrayList<>();
 
     @ManyToOne
@@ -89,7 +89,11 @@ public class Exam extends Model{
     }
 
     public void addSlot(Slot s){
-        this.getSlots().add(s);
+        if(!this.getSlots().contains(s)){
+            this.getSlots().add(s);
+        }
+
+        s.setExam(this);
     }
 
     public void removeStudent(Student e){

@@ -6,6 +6,7 @@ import de.hsos.kbse.backend.model.Slot;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.repository.ExamRepository;
 import de.hsos.kbse.backend.repository.ProfessorRepository;
+import de.hsos.kbse.backend.repository.SlotRepository;
 import de.hsos.kbse.backend.repository.StudentRepository;
 
 import javax.ejb.Stateless;
@@ -30,6 +31,9 @@ public class ExamService {
     @Inject
     ExamRepository examRepository;
 
+    @Inject
+    SlotRepository slotRepository;
+
     public Exam createExam(String name){
         Exam e = new Exam(name);
         Professor p = this.professorRepository.find(this.sessionService.getCurrentUser().getId());
@@ -47,9 +51,9 @@ public class ExamService {
     public Exam addSlot(Exam e, Slot s){
         e = this.examRepository.reattach(e);
         e.addSlot(s);
-        this.examRepository.update(e);
 
-        return e;
+        this.slotRepository.add(s);
+        return this.examRepository.update(e);
     }
 
     public Exam addStudent(Exam e, Student s){
