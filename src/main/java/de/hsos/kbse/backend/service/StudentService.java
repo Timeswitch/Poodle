@@ -21,6 +21,10 @@ public class StudentService {
     @Inject
     SlotRepository slotRepository;
 
+    public Student refresh(Student s){
+        return this.studentRepository.reattach(s);
+    }
+
     public Collection<Student> search(String query){
         return this.studentRepository.search(query);
     }
