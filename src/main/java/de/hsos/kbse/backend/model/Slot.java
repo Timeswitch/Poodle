@@ -26,7 +26,7 @@ public class Slot extends Model {
     @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     Student student;
 
     @NotNull
@@ -48,7 +48,18 @@ public class Slot extends Model {
     }
 
     public void setStudent(Student student) {
+
+        if(this.student != null){
+            if(this.student.getSlots().contains(this)){
+                this.student.getSlots().remove(this);
+            }
+        }
+
         this.student = student;
+
+        if(student != null && !student.getSlots().contains(this)){
+            student.getSlots().add(this);
+        }
     }
 
     public Date getDate() {

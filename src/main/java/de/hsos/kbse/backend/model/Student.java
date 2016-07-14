@@ -24,6 +24,9 @@ public class Student extends User{
     @ManyToMany(mappedBy = "students", fetch = FetchType.EAGER)
     private Set<Exam> exams;
 
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    private Collection<Slot> slots;
+
     public Student(){
         super();
 //        this.role = Role.STUDENT;
@@ -35,5 +38,9 @@ public class Student extends User{
 
     public Collection<Exam> getExams(){
         return this.exams;
+    }
+
+    public Collection<Slot> getSlots() {
+        return slots;
     }
 }

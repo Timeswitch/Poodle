@@ -10,6 +10,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.backend.model.Exam;
+import de.hsos.kbse.backend.model.Slot;
 import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.service.SessionService;
 import de.hsos.kbse.backend.service.StudentService;
@@ -58,7 +59,7 @@ public class StudentExamView extends VerticalLayout implements View{
 
     }
 
-    private void refreshData(boolean fetch){
+    protected void refreshData(boolean fetch){
         if(fetch){
             this.student = this.studentService.refresh(this.student);
             this.exam = null;
@@ -76,10 +77,31 @@ public class StudentExamView extends VerticalLayout implements View{
                 String date = slot.getDate().toLocalDate().toString();
                 String time = slot.getTime().toLocalTime().toString();
 
-                Button action = new Button("Eintragen");
+                Button action = null;
+
+                if(slot.getStudent() == null){
+                    action = new Button("Eintragen");
+                    action.addClickListener(e -> this.registerSlot(slot));
+                }else if(slot.getStudent().equals(this.student)){
+                    action = new Button("Austragen");
+                    action.addClickListener(e -> this.freeSlot(slot));
+                }else{
+                    action = new Button("Belegt");
+                    action.setEnabled(false);
+                }
 
                 this.examTable.addItem(new Object[]{date,time,action},null);
             });
         }
+    }
+
+    protected void registerSlot(Slot s){
+        this.student = this.studentService.registerSlot(this.student,s);
+        this.refreshData(false);
+    }
+
+    protected void freeSlot(Slot s){
+        this.student = this.studentService.freeSlot(this.student,s);
+        this.refreshData(false);
     }
 }

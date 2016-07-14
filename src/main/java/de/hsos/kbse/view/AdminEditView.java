@@ -168,7 +168,13 @@ public class AdminEditView extends CustomComponent implements View{
                 free.setEnabled(false);
             }
 
-            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate().toString(),slot.getTime().toLocalTime().toString(),slot.getStudent(), free},null);
+            String student = "FREI";
+
+            if(slot.getStudent() != null){
+                student = slot.getStudent().getEmail();
+            }
+
+            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate().toString(),slot.getTime().toLocalTime().toString(),student, free},null);
         });
 
         this.studentTable.removeAllItems();
