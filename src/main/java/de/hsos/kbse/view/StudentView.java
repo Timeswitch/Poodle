@@ -26,9 +26,9 @@ import java.util.Date;
  * Created by jan on 06.07.2016.
  */
 
-@CDIView("exams")
+@CDIView("student")
 @DesignRoot
-public class ExamView extends CustomComponent implements View{
+public class StudentView extends CustomComponent implements View{
 
     private Navigator nav;
 
@@ -41,7 +41,7 @@ public class ExamView extends CustomComponent implements View{
     @EJB
     private AuthentificationService authentificationService;
 
-    /*public ExamView(){
+    /*public StudentView(){
         Design.read(this);
     }*/
 
