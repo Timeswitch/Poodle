@@ -79,6 +79,13 @@ public class ExamService {
         return e;
     }
 
+    public Exam freeSlot(Exam e, Slot s){
+        s = this.slotRepository.reattach(s);
+        s.setStudent(null);
+
+        return this.examRepository.reattach(e);
+    }
+
     public Collection<Exam> findExams(){
 
         Professor p = (Professor)this.sessionService.getCurrentUser();

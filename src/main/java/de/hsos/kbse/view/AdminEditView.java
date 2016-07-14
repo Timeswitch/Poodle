@@ -85,6 +85,7 @@ public class AdminEditView extends CustomComponent implements View{
         this.slotTable.addContainerProperty("Datum",String.class,null);
         this.slotTable.addContainerProperty("Uhrzeit",String.class,null);
         this.slotTable.addContainerProperty("Student",String.class,null);
+        this.slotTable.addContainerProperty("",Button.class,null);
         this.slotTable.setSizeFull();
 
         examTab.addComponent(slotTable);
@@ -156,7 +157,18 @@ public class AdminEditView extends CustomComponent implements View{
         this.slotTable.removeAllItems();
         this.exam.getSlots().forEach(slot -> {
 
-            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate().toString(),slot.getTime().toLocalTime().toString(),slot.getStudent()},null);
+            Button free = new Button("Freigeben");
+
+            if(slot.getStudent() != null){
+                free.addClickListener(event -> {
+                    this.exam = this.examService.freeSlot(this.exam,slot);
+                    this.refreshData(false);
+                });
+            }else {
+                free.setEnabled(false);
+            }
+
+            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate().toString(),slot.getTime().toLocalTime().toString(),slot.getStudent(), free},null);
         });
 
         this.studentTable.removeAllItems();
