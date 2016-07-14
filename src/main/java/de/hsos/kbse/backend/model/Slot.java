@@ -16,7 +16,6 @@ import java.sql.Time;
 public class Slot implements Serializable {
 
     @OneToOne
-    @NotNull
     Student student;
 
     @NotNull

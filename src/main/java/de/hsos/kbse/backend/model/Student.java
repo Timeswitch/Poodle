@@ -17,7 +17,7 @@ import java.util.List;
 @DiscriminatorValue("STUDENT")
 public class Student extends User{
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", fetch = FetchType.EAGER)
     private List<Exam> exams;
 
     public Student(){

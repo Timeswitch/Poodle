@@ -79,8 +79,12 @@ public class Exam extends Model{
     }
 
     public void addStudent(Student e){
-        if(!this.students.contains(e)){
-            this.students.add(e);
+        if(!this.getStudents().contains(e)){
+            this.getStudents().add(e);
+        }
+
+        if(!e.getExams().contains(this)){
+            e.getExams().add(this);
         }
     }
 
