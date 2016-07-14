@@ -123,11 +123,11 @@ public class StudentView extends CustomComponent implements View{
         });
 
         this.slotTable.removeAllItems();
-        this.studentService.findRegisteredSlots(this.student).forEach(slot -> {
+        this.student.getSlots().forEach(slot -> {
             String exam = slot.getExam().getName();
             String date = slot.getDate().toLocalDate().toString();
             String time = slot.getTime().toLocalTime().toString();
-            Button unregister = new Button("Abmelden");
+            Button unregister = new Button("Austragen");
 
             unregister.addClickListener(event -> {
                 this.student = this.studentService.freeSlot(this.student,slot);

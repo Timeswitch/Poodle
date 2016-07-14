@@ -26,7 +26,7 @@ public class Exam extends Model{
     @NotEmpty
     private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "exam", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.EAGER)
     private List<Slot> slots = new ArrayList<>();
 
     @ManyToOne

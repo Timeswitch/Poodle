@@ -62,14 +62,14 @@ public class StudentExamView extends VerticalLayout implements View{
     protected void refreshData(boolean fetch){
         if(fetch){
             this.student = this.studentService.refresh(this.student);
-            this.exam = null;
-
-            this.student.getExams().forEach(exam -> {
-                if(exam.getId().equals(this.examId)){
-                    this.exam = exam;
-                }
-            });
         }
+
+        this.exam = null;
+        this.student.getExams().forEach(exam -> {
+            if(exam.getId().equals(this.examId)){
+                this.exam = exam;
+            }
+        });
 
         this.examTable.removeAllItems();
         if(this.exam != null){
@@ -104,4 +104,5 @@ public class StudentExamView extends VerticalLayout implements View{
         this.student = this.studentService.freeSlot(this.student,s);
         this.refreshData(false);
     }
+
 }
