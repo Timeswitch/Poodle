@@ -13,7 +13,7 @@ public abstract class Model implements Serializable, Cloneable {
 
     @Override
     public boolean equals(Object obj) {
-        if(this.getId() == null || !obj.getClass().equals(this.getClass())){
+        if(this.getId() == null || obj == null || !obj.getClass().equals(this.getClass())){
             return false;
         }else{
             return this.getId().equals(((Model)obj).getId());
