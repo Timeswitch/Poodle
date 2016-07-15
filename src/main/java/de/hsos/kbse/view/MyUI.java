@@ -12,6 +12,7 @@ import de.hsos.kbse.backend.service.AuthentificationService;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import java.util.Locale;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser window 
@@ -38,6 +39,8 @@ public class MyUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
+
+        this.getSession().setLocale(Locale.GERMANY );
 
         VerticalLayout verticalLayout = new VerticalLayout();
         GridLayout headergrid = new GridLayout();
@@ -74,6 +77,7 @@ public class MyUI extends UI {
 
         this.nav = new Navigator(this, verticalLayout2);
         this.nav.addProvider(viewProvider);
+        this.nav.setErrorView(ErrorView.class);
         this.nav.navigateTo("login");
     }
 
