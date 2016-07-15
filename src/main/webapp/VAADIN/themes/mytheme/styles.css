@@ -12940,3 +12940,7 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .headerBackColor {
 	background-color: #1b87e3;
 }
+
+.mytheme .headerColor {
+	color: #f0f0f0;
+}
