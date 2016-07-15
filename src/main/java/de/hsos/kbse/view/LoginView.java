@@ -50,6 +50,10 @@ public class LoginView extends VerticalLayout implements View{
         nav = getUI().getNavigator();
 
         ((MyUI) UI.getCurrent()).getButtonLogout().setVisible(false);
+
+        if(this.authentificationService.isLoggedIn()){
+            this.navigateToDashboard();
+        }
     }
 
 
@@ -59,15 +63,7 @@ public class LoginView extends VerticalLayout implements View{
             this.usernameField.setComponentError(new UserError("Geben Sie einen Benutzernamen ein!"));
         }else{
             if(this.authentificationService.authenticate(this.usernameField.getValue(),this.passwordField.getValue())){
-                switch(this.sessionService.getCurrentUser().getRole()){
-                    case PROFESSOR:
-                        nav.navigateTo("admin");
-                        break;
-                    case STUDENT:
-                        nav.navigateTo("student");
-                        break;
-                }
-
+                this.navigateToDashboard();
                 return;
 
             }else{
@@ -83,5 +79,16 @@ public class LoginView extends VerticalLayout implements View{
     private void onRegisterClick(){
 
         nav.navigateTo("register");
+    }
+
+    private void navigateToDashboard(){
+        switch(this.sessionService.getCurrentUser().getRole()){
+            case PROFESSOR:
+                nav.navigateTo("admin");
+                break;
+            case STUDENT:
+                nav.navigateTo("student");
+                break;
+        }
     }
 }
