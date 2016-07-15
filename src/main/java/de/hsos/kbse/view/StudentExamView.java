@@ -2,6 +2,7 @@ package de.hsos.kbse.view;
 
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.cdi.CDIView;
+import com.vaadin.data.util.filter.Not;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -93,6 +94,9 @@ public class StudentExamView extends VerticalLayout implements View{
 
                 this.examTable.addItem(new Object[]{date,time,action},null);
             });
+        }else{
+            this.nav.navigateTo("student");
+            Notification.show("Fehler","Prüfung konnte nicht gefunden werden.", Notification.Type.TRAY_NOTIFICATION);
         }
     }
 
@@ -100,7 +104,7 @@ public class StudentExamView extends VerticalLayout implements View{
         try{
             this.student = this.studentService.registerSlot(this.student,s);
         }catch (Exception e){
-            Notification.show("Fehler","Der Slot ist bereits vergeben!", Notification.Type.ERROR_MESSAGE);
+            Notification.show("Fehler","Der Slot ist bereits vergeben!", Notification.Type.TRAY_NOTIFICATION);
         }
 
         this.refreshData(false);
