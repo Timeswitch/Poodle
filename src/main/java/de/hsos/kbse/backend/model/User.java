@@ -23,6 +23,7 @@ public abstract class User extends Model{
     @GeneratedValue(strategy = GenerationType.TABLE)
     protected Long id;
 
+    @Column(unique = true)
     protected String email;
 
     protected String password;
