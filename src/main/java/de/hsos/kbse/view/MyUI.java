@@ -36,9 +36,11 @@ public class MyUI extends UI {
 
         Label label = new Label("Poodle");
         label.addStyleName("h1");
+        label.addStyleName("headerColor");
         label.setSizeUndefined();
 
         this.logout = new Button("Logout");
+        this.logout.addStyleName("primary");
 
         headergrid.setSpacing(true);
 
