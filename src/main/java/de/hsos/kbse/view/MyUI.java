@@ -7,7 +7,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.*;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.cdi.CDIViewProvider;
+import de.hsos.kbse.backend.service.AuthentificationService;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 
 /**
@@ -22,8 +24,13 @@ import javax.inject.Inject;
 @CDIUI("")
 public class MyUI extends UI {
 
+    @EJB
+    AuthentificationService authentificationService;
+
     @Inject
     private CDIViewProvider viewProvider;
+
+    private Navigator nav;
 
     private Button logout;
 
@@ -41,6 +48,7 @@ public class MyUI extends UI {
 
         this.logout = new Button("Logout");
         this.logout.addStyleName("primary");
+        this.logout.addClickListener(e->this.onLogoutClick());
 
         headergrid.setSpacing(true);
 
@@ -62,9 +70,9 @@ public class MyUI extends UI {
 
         setContent(verticalLayout);
 
-        Navigator navigator = new Navigator(this, verticalLayout2);
-        navigator.addProvider(viewProvider);
-        navigator.navigateTo("login");
+        this.nav = new Navigator(this, verticalLayout2);
+        this.nav.addProvider(viewProvider);
+        this.nav.navigateTo("login");
     }
 
 //    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
@@ -75,5 +83,10 @@ public class MyUI extends UI {
 
     public Button getButtonLogout(){
         return this.logout;
+    }
+
+    public void onLogoutClick(){
+        this.authentificationService.logout();
+        this.nav.navigateTo("login");
     }
 }
