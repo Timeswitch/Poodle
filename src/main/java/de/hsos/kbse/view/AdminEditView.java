@@ -20,10 +20,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import java.sql.Time;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Calendar;
 
 /**
  * Created by jan on 07.07.2016.
@@ -155,6 +154,8 @@ public class AdminEditView extends CustomComponent implements View{
     private void refreshData(boolean fetch){
         this.examService.refresh(this.exam);
 
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyy");
+
         this.slotTable.removeAllItems();
         this.exam.getSlots().forEach(slot -> {
 
@@ -175,7 +176,8 @@ public class AdminEditView extends CustomComponent implements View{
                 student = slot.getStudent().getEmail();
             }
 
-            this.slotTable.addItem(new Object[]{slot.getDate().toLocalDate().toString(),slot.getTime().toLocalTime().toString(),student, free},null);
+            String date = formatDate.format(slot.getDate());
+            this.slotTable.addItem(new Object[]{date,slot.getTime().toLocalTime().toString(),student, free},null);
         });
 
         this.studentTable.removeAllItems();
@@ -194,10 +196,20 @@ public class AdminEditView extends CustomComponent implements View{
     private void onAddClick(){
         Slot s = new Slot();
 
-        Date date = this.date.getValue();
+        Date inputDate = this.date.getValue();
 
-        s.setTime(new Time(date.getTime()));
-        s.setDate(new java.sql.Date(date.getTime()));
+        java.util.Calendar calendar = Calendar.getInstance();
+        calendar.setTime(inputDate);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        Long timestamp = calendar.getTimeInMillis();
+
+        java.sql.Date date = new java.sql.Date(timestamp);
+        Time time = new Time(timestamp);
+
+        s.setTime(time);
+        s.setDate(date);
 
         this.date.setValue(new Date());
 
