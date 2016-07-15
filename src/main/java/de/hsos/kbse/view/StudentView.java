@@ -20,6 +20,7 @@ import de.hsos.kbse.view.MyUI;
 import eu.maxschuster.vaadin.autocompletetextfield.AutocompleteTextField;
 import eu.maxschuster.vaadin.autocompletetextfield.shared.ScrollBehavior;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.persistence.*;
@@ -31,6 +32,7 @@ import java.util.Date;
 
 @CDIView("student")
 @DesignRoot
+@RolesAllowed({"STUDENT"})
 public class StudentView extends CustomComponent implements View{
 
     private Navigator nav;

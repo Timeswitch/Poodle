@@ -17,6 +17,7 @@ import de.hsos.kbse.backend.model.Student;
 import de.hsos.kbse.backend.service.SessionService;
 import de.hsos.kbse.backend.service.StudentService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 
@@ -26,6 +27,7 @@ import javax.inject.Inject;
 
 @CDIView(value = "student/exam", supportsParameters = true)
 @DesignRoot
+@RolesAllowed({"STUDENT"})
 public class StudentExamView extends VerticalLayout implements View{
 
     private Table examTable;
