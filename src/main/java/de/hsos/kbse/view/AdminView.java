@@ -2,6 +2,8 @@ package de.hsos.kbse.view;
 
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.cdi.CDIView;
+import com.vaadin.data.Validator;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -36,9 +38,7 @@ public class AdminView extends VerticalLayout implements View {
         Design.read(this);
 
         this.newButton.addClickListener(event -> this.onNewButtonClick());
-
-        this.nameField.setRequired(true);
-        this.nameField.setRequiredError("Bitte geben Sie einen Namen ein");
+        this.nameField.addValidator(new StringLengthValidator("Geben Sie einen Namen zwischen 1 - 255 Zeichen ein!",1,255,false));
 
     }
 
@@ -89,6 +89,14 @@ public class AdminView extends VerticalLayout implements View {
     }
 
     public void onNewButtonClick(){
+
+        try{
+            this.nameField.validate();
+        }catch (Validator.InvalidValueException e){
+            Notification.show(e.getHtmlMessage(), Notification.Type.TRAY_NOTIFICATION);
+            return;
+        }
+
         Exam e = this.examService.createExam(this.nameField.getValue());
         this.examTable.addItem(new Object[]{e.getName()},null);
         this.nameField.setValue("");
