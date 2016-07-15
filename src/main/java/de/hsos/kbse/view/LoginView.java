@@ -9,6 +9,7 @@ import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.server.UserError;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.declarative.Design;
@@ -54,17 +55,29 @@ public class LoginView extends VerticalLayout implements View{
 
     private void onLoginClick(){
 
-        if(this.authentificationService.authenticate(this.usernameField.getValue(),this.passwordField.getValue())){
+        if("".equals(this.usernameField.getValue())){
+            this.usernameField.setComponentError(new UserError("Geben Sie einen Benutzernamen ein!"));
+        }else{
+            if(this.authentificationService.authenticate(this.usernameField.getValue(),this.passwordField.getValue())){
+                switch(this.sessionService.getCurrentUser().getRole()){
+                    case PROFESSOR:
+                        nav.navigateTo("admin");
+                        break;
+                    case STUDENT:
+                        nav.navigateTo("student");
+                        break;
+                }
 
-            switch(this.sessionService.getCurrentUser().getRole()){
-                case PROFESSOR:
-                    nav.navigateTo("admin");
-                    break;
-                case STUDENT:
-                    nav.navigateTo("student");
-                    break;
+                return;
+
+            }else{
+                UserError error = new UserError("Falscher Benutzername/Passwort");
+                this.usernameField.setComponentError(error);
+                this.passwordField.setComponentError(error);
             }
         }
+
+        Notification.show("Überprüfen Sie Ihre Eingaben.", Notification.Type.TRAY_NOTIFICATION);
     }
 
     private void onRegisterClick(){
