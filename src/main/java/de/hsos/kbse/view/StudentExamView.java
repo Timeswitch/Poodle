@@ -77,6 +77,7 @@ public class StudentExamView extends VerticalLayout implements View{
 
         this.examTable.removeAllItems();
         if(this.exam != null){
+            boolean isRegistered = this.student.hasSlotInExam(this.exam);
             this.exam.getSlots().forEach(slot -> {
                 String date = slot.getDate().toLocalDate().toString();
                 String time = slot.getTime().toLocalTime().toString();
@@ -86,6 +87,10 @@ public class StudentExamView extends VerticalLayout implements View{
                 if(slot.getStudent() == null){
                     action = new Button("Eintragen");
                     action.addClickListener(e -> this.registerSlot(slot));
+
+                    if(isRegistered){
+                        action.setEnabled(false);
+                    }
                 }else if(slot.getStudent().equals(this.student)){
                     action = new Button("Austragen");
                     action.addClickListener(e -> this.freeSlot(slot));

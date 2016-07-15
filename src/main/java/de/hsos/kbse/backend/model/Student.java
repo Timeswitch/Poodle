@@ -45,4 +45,8 @@ public class Student extends User{
     public Collection<Slot> getSlots() {
         return slots;
     }
+
+    public boolean hasSlotInExam(Exam e){
+       return this.getSlots().stream().anyMatch(slot -> e.equals(slot.getExam()));
+    }
 }
