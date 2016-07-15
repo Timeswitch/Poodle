@@ -47,6 +47,8 @@ public class AdminView extends VerticalLayout implements View {
 
         this.nav = this.getUI().getNavigator();
 
+        ((MyUI) UI.getCurrent()).getButtonLogout().setVisible(true);
+
         this.examTable.addContainerProperty("Name", String.class, null);
         this.examTable.addContainerProperty("", CssLayout.class, null);
 

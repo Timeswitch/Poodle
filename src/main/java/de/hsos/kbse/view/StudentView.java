@@ -55,6 +55,8 @@ public class StudentView extends CustomComponent implements View{
 
         this.nav = getUI().getNavigator();
 
+        ((MyUI) UI.getCurrent()).getButtonLogout().setVisible(true);
+
         this.student = (Student)this.sessionService.getCurrentUser();
 
         VerticalLayout verticalLayout = new VerticalLayout();
