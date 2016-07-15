@@ -152,7 +152,15 @@ public class AdminEditView extends CustomComponent implements View{
     }
 
     private void refreshData(boolean fetch){
-        this.examService.refresh(this.exam);
+        if(fetch){
+            this.exam = this.examService.refresh(this.exam);
+        }
+
+        if(this.exam == null){
+            this.nav.navigateTo("admin");
+            Notification.show("Fehler","Prüfung wurde nicht gefunden!", Notification.Type.TRAY_NOTIFICATION);
+            return;
+        }
 
         SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyy");
 
