@@ -6,6 +6,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.declarative.Design;
@@ -96,7 +97,12 @@ public class StudentExamView extends VerticalLayout implements View{
     }
 
     protected void registerSlot(Slot s){
-        this.student = this.studentService.registerSlot(this.student,s);
+        try{
+            this.student = this.studentService.registerSlot(this.student,s);
+        }catch (Exception e){
+            Notification.show("Fehler","Der Slot ist bereits vergeben!", Notification.Type.ERROR_MESSAGE);
+        }
+
         this.refreshData(false);
     }
 
