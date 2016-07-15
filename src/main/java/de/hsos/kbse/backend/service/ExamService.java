@@ -56,9 +56,13 @@ public class ExamService {
         return this.examRepository.update(e);
     }
 
-    public Exam addStudent(Exam e, Student s){
+    public Exam addStudent(Exam e, Student s) throws Exception{
         e = this.examRepository.reattach(e);
         s = this.studentRepository.reattach(s);
+
+        if(s == null){
+            throw new Exception("Student existiert nicht!");
+        }
 
         e.addStudent(s);
         this.examRepository.update(e);
@@ -66,7 +70,7 @@ public class ExamService {
         return e;
     }
 
-    public Exam addStudent(Exam e, String email){
+    public Exam addStudent(Exam e, String email) throws Exception {
         Student s = this.studentRepository.findByEmail(email);
         return this.addStudent(e,s);
     }

@@ -5,6 +5,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.UserError;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.*;
 import de.hsos.kbse.backend.model.Exam;
@@ -200,21 +201,35 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.date.setValue(new Date());
 
-        this.exam = this.examService.addSlot(this.exam,s);
-        this.refreshData(false);
+        try{
+            this.exam = this.examService.addSlot(this.exam,s);
+            this.refreshData(false);
+        }catch (Exception e){
+            Notification.show("Fehler","Konnte Slot nicht anlegen", Notification.Type.TRAY_NOTIFICATION);
+        }
 
     }
 
     private void onAddStudentButtonClick(){
         String email = this.name.getValue();
         if("".equals(email)){
+            UserError error = new UserError("Geben Sie eine gültige Email ein!");
+            this.name.setComponentError(error);
+            Notification.show(error.getMessage());
             return;
         }
 
-        this.exam = this.examService.addStudent(this.exam,email);
-        this.refreshData(false);
-        this.name.setValue("");
+        try{
+            this.exam = this.examService.addStudent(this.exam,email);
+            this.refreshData(false);
+            this.name.setValue("");
+            this.name.setComponentError(null);
+        }catch(Exception e){
+            UserError error = new UserError("Student wurde nicht gefunden.");
+            this.name.setComponentError(error);
 
+            Notification.show(error.getMessage());
+        }
     }
 
 }
