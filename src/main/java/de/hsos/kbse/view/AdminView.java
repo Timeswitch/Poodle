@@ -7,6 +7,7 @@ import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.UserError;
 import com.vaadin.ui.*;
 import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.backend.model.Exam;
@@ -38,6 +39,8 @@ public class AdminView extends VerticalLayout implements View {
         Design.read(this);
 
         this.newButton.addClickListener(event -> this.onNewButtonClick());
+
+        this.nameField.setValidationVisible(false);
         this.nameField.addValidator(new StringLengthValidator("Geben Sie einen Namen zwischen 1 - 255 Zeichen ein!",1,255,false));
 
     }
@@ -92,7 +95,9 @@ public class AdminView extends VerticalLayout implements View {
 
         try{
             this.nameField.validate();
+            this.nameField.setComponentError(null);
         }catch (Validator.InvalidValueException e){
+            this.nameField.setComponentError(new UserError(e.getHtmlMessage()));
             Notification.show(e.getHtmlMessage(), Notification.Type.TRAY_NOTIFICATION);
             return;
         }
