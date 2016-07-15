@@ -12936,3 +12936,7 @@ div.v-layout.v-horizontal.v-widget {
 	width: 19px;
 	overflow: hidden;
 }
+
+.mytheme .headerBackColor {
+	background-color: #1b87e3;
+}

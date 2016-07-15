@@ -25,26 +25,42 @@ public class MyUI extends UI {
     @Inject
     private CDIViewProvider viewProvider;
 
+    private Button logout;
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
         VerticalLayout verticalLayout = new VerticalLayout();
+        GridLayout headergrid = new GridLayout();
         VerticalLayout verticalLayout2 = new VerticalLayout();
-        VerticalLayout verticalLayout3 = new VerticalLayout();
 
         Label label = new Label("Poodle");
         label.addStyleName("h1");
-        label.setWidth(null);
+        label.setSizeUndefined();
 
-        verticalLayout2.addComponent(label);
-        verticalLayout2.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+        this.logout = new Button("Logout");
+
+        headergrid.setSpacing(true);
+
+        headergrid.removeAllComponents();
+        headergrid.setRows(1);
+        headergrid.setColumns(3);
+        headergrid.setSizeFull();
+        headergrid.setColumnExpandRatio(1,1.0f);
+
+        headergrid.addComponent(label,0,0);
+        headergrid.addComponent(this.logout,2,0);
+        headergrid.setComponentAlignment(label, Alignment.MIDDLE_LEFT);
+        headergrid.setComponentAlignment(this.logout, Alignment.MIDDLE_LEFT);
+        headergrid.addStyleName("headerBackColor");
+
+        verticalLayout.addComponent(headergrid);
+
         verticalLayout.addComponent(verticalLayout2);
-
-        verticalLayout.addComponent(verticalLayout3);
 
         setContent(verticalLayout);
 
-        Navigator navigator = new Navigator(this, verticalLayout3);
+        Navigator navigator = new Navigator(this, verticalLayout2);
         navigator.addProvider(viewProvider);
         navigator.navigateTo("login");
     }
@@ -53,4 +69,9 @@ public class MyUI extends UI {
 //    @VaadinServletConfiguration(ui = MyUI.class, productionMode = false)
 //    public static class MyUIServlet extends VaadinServlet {
 //    }
+
+
+    public Button getButtonLogout(){
+        return this.logout;
+    }
 }
