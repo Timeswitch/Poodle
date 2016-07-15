@@ -29,14 +29,18 @@ public class StudentService {
         return this.studentRepository.search(query);
     }
 
-    public Student registerSlot(Student student, Slot s){
+    public Student registerSlot(Student student, Slot s) throws Exception{
 
         student = this.studentRepository.reattach(student);
         s = this.slotRepository.reattach(s);
 
-        s.setStudent(student);
+        if(s.getStudent() == null){
+            s.setStudent(student);
+            this.slotRepository.update(s);
+        }else {
+            throw new Exception("Slot ist belegt!");
+        }
 
-        this.slotRepository.update(s);
 
         return student;
     }
