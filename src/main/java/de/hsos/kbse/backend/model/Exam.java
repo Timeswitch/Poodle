@@ -27,12 +27,14 @@ public class Exam extends Model{
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "exam", fetch = FetchType.EAGER)
+    @OrderBy("date, time")
     private List<Slot> slots = new ArrayList<>();
 
     @ManyToOne
     private Professor professor;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OrderBy("email")
     private Collection<Student> students = new ArrayList<>();
 
     public Exam(){}

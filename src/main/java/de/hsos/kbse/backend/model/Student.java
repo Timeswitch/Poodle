@@ -9,6 +9,7 @@ import javax.enterprise.inject.Vetoed;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,9 +23,10 @@ import java.util.Set;
 public class Student extends User{
 
     @ManyToMany(mappedBy = "students", fetch = FetchType.EAGER)
-    private Set<Exam> exams;
+    private Collection<Exam> exams = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @OrderBy("exam, date, time")
     private Collection<Slot> slots;
 
     public Student(){
