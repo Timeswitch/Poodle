@@ -35,10 +35,6 @@ public class AdminView extends VerticalLayout implements View {
     public AdminView(){
         Design.read(this);
 
-        this.examTable.setSelectable(true);
-        this.examTable.setImmediate(true);
-        this.examTable.addValueChangeListener(event -> this.onTableClick());
-
         this.newButton.addClickListener(event -> this.onNewButtonClick());
 
         this.nameField.setRequired(true);
@@ -88,10 +84,6 @@ public class AdminView extends VerticalLayout implements View {
         for (Exam exam : exams) {
             this.examTable.addItem(new Object[]{exam.getName(),this.createButton(exam)}, null);
         }
-    }
-
-    public void onTableClick(){
-        Notification.show(this.examTable.getValue().toString());
     }
 
     public void onNewButtonClick(){
