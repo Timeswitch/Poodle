@@ -93,7 +93,7 @@ public class AdminEditView extends CustomComponent implements View{
         this.date = new PopupDateField();
         this.date.setValue(new Date());
         this.date.setImmediate(true);
-        this.date.setDateFormat("dd.MM.yyyy hh:mm");
+        this.date.setDateFormat("dd.MM.yyy HH:mm");
         this.date.setResolution(Resolution.MINUTE);
 
         this.addButton = new Button("Hinzufügen");
