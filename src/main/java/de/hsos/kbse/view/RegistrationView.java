@@ -47,12 +47,14 @@ public class RegistrationView extends VerticalLayout implements View{
 
     RegistrationView(){
         Design.read(this);
-
+        
         this.registerButton.addClickListener((Button.ClickListener) e -> this.onRegisterClick());
         this.abortButton.addClickListener((Button.ClickListener) e -> this.onAbortClick());
 
+        this.usernameField.setRequired(true);
         this.usernameField.addValidator(new EmailValidator("Benutzername muss eine Email sein!"));
 
+        this.passwordField.setRequired(true);
         this.passwordField.addValidator(new StringLengthValidator("Das Passwort muss mindestens 5 Zeichen lang sein!",5,255,false));
         this.passwordField.addValidator(value -> {
             if(!value.equals(this.passwordConfirmField.getValue())){
@@ -60,6 +62,7 @@ public class RegistrationView extends VerticalLayout implements View{
             }
         });
 
+        this.passwordConfirmField.setRequired(true);
         this.passwordConfirmField.addValidator(value -> {
             try{
                 this.passwordField.validate();
@@ -81,6 +84,8 @@ public class RegistrationView extends VerticalLayout implements View{
             Role role = Role.valueOf(((String)this.dropdown.getValue()).toUpperCase());
             if(this.authentificationService.register(this.usernameField.getValue(),this.passwordField.getValue(), role)){
                 nav.navigateTo("login");
+            }else{
+                this.usernameField.setComponentError(new UserError("Benutzername bereits vorhanden."));
             }
         }
     }
