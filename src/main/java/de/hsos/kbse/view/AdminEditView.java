@@ -2,7 +2,6 @@ package de.hsos.kbse.view;
 
 import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.event.FieldEvents;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.UserError;
@@ -12,7 +11,7 @@ import de.hsos.kbse.backend.model.Exam;
 import de.hsos.kbse.backend.model.Slot;
 import de.hsos.kbse.backend.service.ExamService;
 import de.hsos.kbse.backend.service.StudentService;
-import de.hsos.kbse.view.utils.StudentAutocompleteSuggestionProvider;
+import de.hsos.kbse.view.util.StudentAutocompleteSuggestionProvider;
 import eu.maxschuster.vaadin.autocompletetextfield.AutocompleteTextField;
 import eu.maxschuster.vaadin.autocompletetextfield.shared.ScrollBehavior;
 

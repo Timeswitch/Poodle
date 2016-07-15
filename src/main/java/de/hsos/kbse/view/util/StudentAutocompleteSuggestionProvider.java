@@ -1,4 +1,4 @@
-package de.hsos.kbse.view.utils;
+package de.hsos.kbse.view.util;
 
 import com.vaadin.cdi.ViewScoped;
 import de.hsos.kbse.backend.service.StudentService;
