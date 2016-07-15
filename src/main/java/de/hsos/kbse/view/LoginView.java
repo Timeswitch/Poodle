@@ -47,6 +47,8 @@ public class LoginView extends VerticalLayout implements View{
     @Override
     public void enter(ViewChangeEvent event) {
         nav = getUI().getNavigator();
+
+        ((MyUI) UI.getCurrent()).getButtonLogout().setVisible(false);
     }
 
 
