@@ -1,5 +1,6 @@
 package de.hsos.kbse.view;
 
+import com.vaadin.annotations.PreserveOnRefresh;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.cdi.CDIUI;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 @Theme("mytheme")
 @Widgetset("de.hsos.kbse.MyAppWidgetset")
 @CDIUI("")
+@PreserveOnRefresh
 public class MyUI extends UI {
 
     @EJB
