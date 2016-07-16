@@ -8,14 +8,11 @@ import de.hsos.kbse.poodle.backend.repository.ExamRepository;
 import de.hsos.kbse.poodle.backend.repository.ProfessorRepository;
 import de.hsos.kbse.poodle.backend.repository.SlotRepository;
 import de.hsos.kbse.poodle.backend.repository.StudentRepository;
+import java.util.Collection;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.Collection;
 
-/**
- * Created by michael on 07/07/16.
- */
 @Stateless
 public class ExamService {
 
@@ -90,7 +87,7 @@ public class ExamService {
         return this.examRepository.reattach(e);
     }
 
-    public Collection<Exam> findExams(){
+    public Collection<Exam> findExams(){ //todo lieber reattach?
 
         Professor p = (Professor)this.sessionService.getCurrentUser();
         return this.examRepository.findByProfessor(p);

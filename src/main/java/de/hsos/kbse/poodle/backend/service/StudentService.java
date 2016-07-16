@@ -4,14 +4,11 @@ import de.hsos.kbse.poodle.backend.model.Slot;
 import de.hsos.kbse.poodle.backend.model.Student;
 import de.hsos.kbse.poodle.backend.repository.SlotRepository;
 import de.hsos.kbse.poodle.backend.repository.StudentRepository;
+import java.util.Collection;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.Collection;
 
-/**
- * Created by michael on 12/07/16.
- */
 @Stateless
 public class StudentService {
 
@@ -56,10 +53,4 @@ public class StudentService {
 
         return student;
     }
-
-    public Collection<Slot> findRegisteredSlots(Student s){
-        return this.slotRepository.findByStudent(s);
-    }
-
-
 }

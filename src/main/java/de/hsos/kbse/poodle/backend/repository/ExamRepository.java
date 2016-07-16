@@ -7,9 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 
-/**
- * Created by michael on 07/07/16.
- */
 @Stateless
 public class ExamRepository extends GenericRepository<Exam> {
 

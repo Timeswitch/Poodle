@@ -5,10 +5,6 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-/**
- * Created by jan on 26.06.2016.
- */
-
 @Entity
 @Vetoed
 @DiscriminatorValue("STUDENT")
@@ -21,13 +17,11 @@ public class Student extends User{
     @OrderBy("exam, date, time")
     private Collection<Slot> slots;
 
-    public Student(){
-        super();
-//        this.role = Role.STUDENT;
-    }
-
     public Student(String email, String password){
         super(email, password);
+    }
+
+    public Student() {
     }
 
     public Collection<Exam> getExams(){

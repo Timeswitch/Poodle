@@ -7,9 +7,6 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 
-/**
- * Created by michael on 14/07/16.
- */
 @Stateless
 public class SlotRepository extends GenericRepository<Slot> {
     protected SlotRepository() {

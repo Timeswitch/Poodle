@@ -10,9 +10,6 @@ import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by michael on 12/07/16.
- */
 @ViewScoped
 public class StudentAutocompleteSuggestionProvider implements AutocompleteSuggestionProvider {
 

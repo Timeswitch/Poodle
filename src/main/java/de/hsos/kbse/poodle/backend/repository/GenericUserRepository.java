@@ -9,9 +9,6 @@ import javax.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by michael on 06/07/16.
- */
 public class GenericUserRepository<T extends User> extends GenericRepository<T> {
 
     public GenericUserRepository(Class<T> type){

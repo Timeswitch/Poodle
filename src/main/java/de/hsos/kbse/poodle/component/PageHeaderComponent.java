@@ -3,9 +3,6 @@ package de.hsos.kbse.poodle.component;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 
-/**
- * Created by michael on 16/07/16.
- */
 public class PageHeaderComponent extends HorizontalLayout{
 
     protected Label titleLabel;

@@ -18,12 +18,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-/**
- *
- * @author michael
- * @param <T>
- */
-
 public abstract class GenericRepository<T extends Model> implements Serializable{
     @PersistenceContext(unitName="DB",type=PersistenceContextType.TRANSACTION)
     protected EntityManager em;

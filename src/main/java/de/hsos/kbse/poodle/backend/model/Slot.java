@@ -6,17 +6,8 @@ import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
 
-/**
- * Created by jan on 26.06.2016.
- */
 @Vetoed
 @Entity
-@NamedQueries({
-    @NamedQuery(
-            name="Slot.findByStudent",
-            query="SELECT s FROM Slot s WHERE s.student.id = :id"
-    )
-})
 public class Slot extends Model {
 
     @Id

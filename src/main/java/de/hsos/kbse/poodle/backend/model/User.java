@@ -4,10 +4,6 @@ import de.hsos.kbse.poodle.backend.security.Role;
 
 import javax.persistence.*;
 
-/**
- * Created by jan on 25.06.2016.
- */
-
 @Entity
 @Inheritance
 @DiscriminatorColumn(name = "role")
@@ -28,12 +24,9 @@ public abstract class User extends Model{
 
     protected String password;
 
-//    @Enumerated(EnumType.STRING)
-//    protected Role role;
-
     @Column(name = "role", insertable = false, updatable = false)
     @Enumerated(EnumType.STRING)
-    private Role role;
+    protected Role role;
 
     public User(){}
 

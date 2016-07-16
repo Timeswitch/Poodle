@@ -4,16 +4,13 @@ import com.vaadin.cdi.access.JaasAccessControl;
 import de.hsos.kbse.poodle.backend.repository.UserRepository;
 import de.hsos.kbse.poodle.backend.model.User;
 import de.hsos.kbse.poodle.backend.security.Role;
-
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import java.security.MessageDigest;
 import java.util.Base64;
+import java.util.logging.Logger;
 
-/**
- * Created by michael on 06/07/16.
- */
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 @Stateless
 public class AuthentificationService {
@@ -39,7 +36,7 @@ public class AuthentificationService {
                 this.sessionService.setCurrentUser(u);
                 return true;
             } catch (ServletException e) {
-                e.printStackTrace();
+                Logger.getLogger(AuthentificationService.class.getName()).fine("Login fehlgeschlagen");
             }
         }
 
@@ -52,7 +49,7 @@ public class AuthentificationService {
         try {
             this.jaasAccessControl.logout();
         }catch (ServletException e){
-            //So oder so ist der User nicht mehr eingeloggt.
+            Logger.getLogger(AuthentificationService.class.getName()).fine("User abgemeldet");
         }
     }
 
