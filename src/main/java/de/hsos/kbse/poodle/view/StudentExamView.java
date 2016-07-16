@@ -26,7 +26,6 @@ import javax.inject.Inject;
 public class StudentExamView extends VerticalLayout implements View{
 
     protected Table examTable;
-    protected Button backButton;
 
     protected Navigator nav;
 
@@ -60,9 +59,6 @@ public class StudentExamView extends VerticalLayout implements View{
         this.examTable.setColumnReorderingAllowed(false);
         this.examTable.setColumnWidth("  ",125);
 
-        this.backButton.addClickListener(e -> {
-            this.nav.navigateTo("student");
-        });
 
         this.refreshData(true);
 
