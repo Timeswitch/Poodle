@@ -29,7 +29,7 @@ public class GenericUserRepository<T extends User> extends GenericRepository<T> 
 
     public Collection<T> search(String query){
         TypedQuery<User> q = this.em.createNamedQuery("User.search",User.class);
-        q.setParameter("query", "%" + query + "%");
+        q.setParameter("query", query + "%");
         q.setParameter("type",this.getType());
         Collection<T> res = (Collection<T>) ((Collection<?>) q.getResultList());
 

@@ -134,9 +134,9 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.name = new AutocompleteTextField();
         this.name.setCache(true);
-        this.name.setDelay(150);
+        this.name.setDelay(80);
         this.name.setItemAsHtml(false);
-        this.name.setMinChars(3);
+        this.name.setMinChars(2);
         this.name.setScrollBehavior(ScrollBehavior.NONE);
         this.name.setSuggestionLimit(0);
         this.name.setSuggestionProvider(this.studentAutocompleteSuggestionProvider);
