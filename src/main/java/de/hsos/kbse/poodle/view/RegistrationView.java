@@ -58,6 +58,8 @@ public class RegistrationView extends VerticalLayout implements View{
                 this.passwordField.setComponentError(new UserError(e.getHtmlMessage()));
             }
         });
+
+        this.dropdown.setNullSelectionAllowed(false);
     }
 
     @Override
