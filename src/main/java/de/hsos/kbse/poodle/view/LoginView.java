@@ -7,10 +7,8 @@ import com.vaadin.server.UserError;
 import com.vaadin.ui.*;
 import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.poodle.backend.service.AuthentificationService;
-import de.hsos.kbse.poodle.backend.service.SessionService;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import com.vaadin.annotations.DesignRoot;
 import com.vaadin.cdi.CDIView;
 
@@ -21,9 +19,6 @@ public class LoginView extends VerticalLayout implements View{
 
     @EJB
     protected AuthentificationService authentificationService;
-
-    @Inject
-    protected SessionService sessionService;
 
     protected TextField usernameField;
     protected PasswordField passwordField;
@@ -74,7 +69,7 @@ public class LoginView extends VerticalLayout implements View{
     }
 
     protected void navigateToDashboard(){
-        switch(this.sessionService.getCurrentUser().getRole()){
+        switch(this.authentificationService.getCurrentUser().getRole()){
             case PROFESSOR:
                 nav.navigateTo("admin");
                 break;
