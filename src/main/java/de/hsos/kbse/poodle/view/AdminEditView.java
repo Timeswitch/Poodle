@@ -1,6 +1,7 @@
 package de.hsos.kbse.poodle.view;
 
 import com.vaadin.cdi.CDIView;
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -144,6 +145,7 @@ public class AdminEditView extends CustomComponent implements View{
 
         this.addStudentButton = new Button("Hinzufügen");
         this.addStudentButton.addClickListener(event1 -> this.onAddStudentButtonClick());
+        this.addStudentButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         this.addStudentButton.setStyleName("primary");
         horizontalLayout1.addComponent(this.addStudentButton);
 

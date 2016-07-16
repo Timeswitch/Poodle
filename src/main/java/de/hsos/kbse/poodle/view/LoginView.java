@@ -1,5 +1,6 @@
 package de.hsos.kbse.poodle.view;
 
+import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -31,6 +32,7 @@ public class LoginView extends VerticalLayout implements View{
         Design.read(this);
 
         this.loginButton.addClickListener((Button.ClickListener) event1 -> this.onLoginClick());
+        this.loginButton.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         this.registerButton.addClickListener((Button.ClickListener) event12 -> this.onRegisterClick());
     }
 
