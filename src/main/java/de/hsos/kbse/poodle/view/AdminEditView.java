@@ -46,6 +46,7 @@ public class AdminEditView extends CustomComponent implements View{
     protected Table slotTable;
     protected Table studentTable;
     protected Button addStudentButton;
+    protected Button backButton;
 
     protected Exam exam;
 
@@ -64,6 +65,13 @@ public class AdminEditView extends CustomComponent implements View{
         Label header = new Label("\""+exam.getName()+"\" bearbeiten");
         header.setStyleName("h1");
         verticalLayout.addComponent(header);
+
+        this.backButton = new Button("Zurück");
+        this.backButton.setStyleName("link");
+        this.backButton.addClickListener(e -> {
+            this.nav.navigateTo("admin");
+        });
+        verticalLayout.addComponent(this.backButton);
 
         //tabsheet
         TabSheet tabsheet = new TabSheet();
