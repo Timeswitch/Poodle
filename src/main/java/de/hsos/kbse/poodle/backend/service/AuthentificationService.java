@@ -8,6 +8,8 @@ import de.hsos.kbse.poodle.backend.security.Role;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 /**
  * Created by michael on 06/07/16.
@@ -65,7 +67,7 @@ public class AuthentificationService {
         u = User.make(role);
 
         u.setEmail(email);
-        u.setPassword(password);
+        u.setPassword(AuthentificationService.encodePassword(password));
 
         this.userRepository.add(u);
 
@@ -83,5 +85,16 @@ public class AuthentificationService {
 
     public User getCurrentUser(){
         return this.sessionService.getCurrentUser();
+    }
+
+    public static String encodePassword(String password){
+        try{
+            MessageDigest sha = MessageDigest.getInstance("SHA-256");
+            password = Base64.getEncoder().encodeToString(sha.digest(password.getBytes()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return password;
     }
 }
