@@ -87,13 +87,14 @@ public class StudentView extends CustomComponent implements View{
         this.slotTable.addContainerProperty("Prüfung",String.class,null);
         this.slotTable.addContainerProperty("Datum",String.class,null);
         this.slotTable.addContainerProperty("Zeit",String.class,null);
-        this.slotTable.addContainerProperty("",Button.class,null);
+        this.slotTable.addContainerProperty("  ",Button.class,null);
         this.slotTable.setEditable(false);
         this.slotTable.setDragMode(Table.TableDragMode.NONE);
         this.slotTable.setColumnCollapsingAllowed(false);
         this.slotTable.setColumnReorderingAllowed(false);
 
         this.slotTable.setSizeFull();
+        this.slotTable.setColumnWidth("  ",125);
         studentTab.addComponent(this.slotTable);
 
         this.logoutButton = new Button("Logout");

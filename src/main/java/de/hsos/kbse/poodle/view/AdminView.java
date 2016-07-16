@@ -47,18 +47,20 @@ public class AdminView extends VerticalLayout implements View {
         this.nav = this.getUI().getNavigator();
 
         this.examTable.addContainerProperty("Name", String.class, null);
-        this.examTable.addContainerProperty("", CssLayout.class, null);
+        this.examTable.addContainerProperty("  ", HorizontalLayout.class, null);
+
         this.examTable.setEditable(false);
         this.examTable.setDragMode(Table.TableDragMode.NONE);
         this.examTable.setColumnCollapsingAllowed(false);
         this.examTable.setColumnReorderingAllowed(false);
-
+        this.examTable.setColumnWidth("  ",250);
         this.refreshTable();
 
     }
 
-    public CssLayout createButton(Exam exam){
-        CssLayout layout = new CssLayout();
+    public HorizontalLayout createButton(Exam exam){
+        HorizontalLayout layout = new HorizontalLayout();
+        layout.setSpacing(true);
 
         Button edit = new Button("Bearbeiten");
         Button delete = new Button("Löschen");
@@ -75,6 +77,7 @@ public class AdminView extends VerticalLayout implements View {
 
         layout.addComponent(edit);
         layout.addComponent(delete);
+        layout.setSizeUndefined();
 
         return layout;
     }

@@ -52,11 +52,12 @@ public class StudentExamView extends VerticalLayout implements View{
 
         this.examTable.addContainerProperty("Datum",String.class,null);
         this.examTable.addContainerProperty("Uhrzeit",String.class,null);
-        this.examTable.addContainerProperty("",Button.class,null);
+        this.examTable.addContainerProperty("  ",Button.class,null);
         this.examTable.setEditable(false);
         this.examTable.setDragMode(Table.TableDragMode.NONE);
         this.examTable.setColumnCollapsingAllowed(false);
         this.examTable.setColumnReorderingAllowed(false);
+        this.examTable.setColumnWidth("  ",125);
 
         this.refreshData(true);
 
