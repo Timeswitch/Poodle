@@ -1,7 +1,5 @@
 package de.hsos.kbse.poodle.view;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -16,32 +14,30 @@ import de.hsos.kbse.poodle.backend.model.Student;
 import de.hsos.kbse.poodle.backend.service.SessionService;
 import de.hsos.kbse.poodle.backend.service.StudentService;
 
+import com.vaadin.annotations.DesignRoot;
+import com.vaadin.cdi.CDIView;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-
-/**
- * Created by jan on 14.07.2016.
- */
 
 @CDIView(value = "student/exam", supportsParameters = true)
 @DesignRoot
 @RolesAllowed({"STUDENT"})
 public class StudentExamView extends VerticalLayout implements View{
 
-    private Table examTable;
+    protected Table examTable;
 
-    private Navigator nav;
+    protected Navigator nav;
 
-    private Long examId;
-    private Student student;
-    private Exam exam;
+    protected Long examId;
+    protected Student student;
+    protected Exam exam;
 
     @EJB
-    private StudentService studentService;
+    protected StudentService studentService;
 
     @Inject
-    private SessionService sessionService;
+    protected SessionService sessionService;
 
     public StudentExamView(){
         Design.read(this);

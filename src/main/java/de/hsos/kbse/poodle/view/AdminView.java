@@ -10,7 +10,6 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.UserError;
 import com.vaadin.ui.*;
 import com.vaadin.ui.declarative.Design;
-import de.hsos.kbse.poodle.PoodleUI;
 import de.hsos.kbse.poodle.backend.model.Exam;
 import de.hsos.kbse.poodle.backend.service.ExamService;
 
@@ -18,22 +17,19 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import java.util.Collection;
 
-/**
- * Created by michael on 07/07/16.
- */
 @CDIView("admin")
 @DesignRoot
 @RolesAllowed({"PROFESSOR"})
 public class AdminView extends VerticalLayout implements View {
 
     @EJB
-    ExamService examService;
+    protected ExamService examService;
 
-    Navigator nav;
+    protected Navigator nav;
 
-    Table examTable;
-    Button newButton;
-    TextField nameField;
+    protected Table examTable;
+    protected Button newButton;
+    protected TextField nameField;
 
     public AdminView(){
         Design.read(this);

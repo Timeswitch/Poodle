@@ -8,15 +8,12 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.declarative.Design;
 
-/**
- * Created by michael on 15/07/16.
- */
 @CDIView("error")
 @DesignRoot
 public class ErrorView extends VerticalLayout implements View{
 
-    Label error;
-    Label message;
+    protected Label error;
+    protected Label message;
 
     public ErrorView(){
         Design.read(this);

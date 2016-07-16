@@ -1,7 +1,5 @@
 package de.hsos.kbse.poodle.view;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.cdi.CDIView;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -10,33 +8,30 @@ import com.vaadin.ui.Table;
 import de.hsos.kbse.poodle.backend.model.Student;
 import de.hsos.kbse.poodle.backend.service.SessionService;
 import de.hsos.kbse.poodle.backend.service.StudentService;
-import de.hsos.kbse.poodle.PoodleUI;
 
+import com.vaadin.annotations.DesignRoot;
+import com.vaadin.cdi.CDIView;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-
-/**
- * Created by jan on 06.07.2016.
- */
 
 @CDIView("student")
 @DesignRoot
 @RolesAllowed({"STUDENT"})
 public class StudentView extends CustomComponent implements View{
 
-    private Navigator nav;
-    private Table examTable;
-    private Table slotTable;
-    private Button logoutButton;
+    protected Navigator nav;
+    protected Table examTable;
+    protected Table slotTable;
+    protected Button logoutButton;
 
     @Inject
-    private SessionService sessionService;
+    protected SessionService sessionService;
 
     @EJB
-    private StudentService studentService;
+    protected StudentService studentService;
 
-    private Student student;
+    protected Student student;
 
     /*public StudentView(){
         Design.read(this);

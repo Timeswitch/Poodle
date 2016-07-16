@@ -23,34 +23,30 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Calendar;
 
-/**
- * Created by jan on 07.07.2016.
- */
-
 @CDIView(value = "admin/edit", supportsParameters = true)
 @RolesAllowed({"PROFESSOR"})
 public class AdminEditView extends CustomComponent implements View{
 
     @EJB
-    private ExamService examService;
+    protected ExamService examService;
 
     @EJB
-    private StudentService studentService;
+    protected StudentService studentService;
 
     @Inject
-    StudentAutocompleteSuggestionProvider studentAutocompleteSuggestionProvider;
+    protected StudentAutocompleteSuggestionProvider studentAutocompleteSuggestionProvider;
 
-    private Navigator nav;
+    protected Navigator nav;
 
-    private Button abortButton;
-    private Button addButton;
-    private PopupDateField date;
-    private AutocompleteTextField name;
-    private Table slotTable;
-    private Table studentTable;
-    private Button addStudentButton;
+    protected Button abortButton;
+    protected Button addButton;
+    protected PopupDateField date;
+    protected AutocompleteTextField name;
+    protected Table slotTable;
+    protected Table studentTable;
+    protected Button addStudentButton;
 
-    private Exam exam;
+    protected Exam exam;
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
@@ -146,11 +142,11 @@ public class AdminEditView extends CustomComponent implements View{
         this.refreshData(false);
     }
 
-    private void refreshData(){
+    protected void refreshData(){
         this.refreshData(true);
     }
 
-    private void refreshData(boolean fetch){
+    protected void refreshData(boolean fetch){
         if(fetch){
             this.exam = this.examService.refresh(this.exam);
         }
@@ -200,7 +196,7 @@ public class AdminEditView extends CustomComponent implements View{
         });
     }
 
-    private void onAddClick(){
+    protected void onAddClick(){
         Slot s = new Slot();
 
         Date inputDate = this.date.getValue();
@@ -229,7 +225,7 @@ public class AdminEditView extends CustomComponent implements View{
 
     }
 
-    private void onAddStudentButtonClick(){
+    protected void onAddStudentButtonClick(){
         String email = this.name.getValue();
         if("".equals(email)){
             UserError error = new UserError("Geben Sie eine gültige Email ein!");

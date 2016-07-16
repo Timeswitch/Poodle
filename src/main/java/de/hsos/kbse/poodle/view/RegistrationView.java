@@ -1,7 +1,5 @@
 package de.hsos.kbse.poodle.view;
 
-import com.vaadin.annotations.DesignRoot;
-import com.vaadin.cdi.CDIView;
 import com.vaadin.data.Validator;
 import com.vaadin.data.validator.EmailValidator;
 import com.vaadin.data.validator.StringLengthValidator;
@@ -14,28 +12,25 @@ import com.vaadin.ui.declarative.Design;
 import de.hsos.kbse.poodle.backend.security.Role;
 import de.hsos.kbse.poodle.backend.service.AuthentificationService;
 
+import com.vaadin.annotations.DesignRoot;
+import com.vaadin.cdi.CDIView;
 import javax.ejb.EJB;
-
-
-/**
- * Created by jan on 06.07.2016.
- */
 
 @CDIView("register")
 @DesignRoot
 public class RegistrationView extends VerticalLayout implements View{
 
     @EJB
-    private AuthentificationService authentificationService;
+    protected AuthentificationService authentificationService;
 
-    private TextField usernameField;
-    private PasswordField passwordField;
-    private PasswordField passwordConfirmField;
-    private Button registerButton;
-    private Button abortButton;
-    private NativeSelect dropdown;
+    protected TextField usernameField;
+    protected PasswordField passwordField;
+    protected PasswordField passwordConfirmField;
+    protected Button registerButton;
+    protected Button abortButton;
+    protected NativeSelect dropdown;
 
-    private Navigator nav;
+    protected Navigator nav;
 
     RegistrationView(){
         Design.read(this);
@@ -70,7 +65,7 @@ public class RegistrationView extends VerticalLayout implements View{
         nav = getUI().getNavigator();
     }
 
-    private void onRegisterClick(){
+    protected void onRegisterClick(){
 
         if(this.validate()){
             Role role = Role.valueOf(((String)this.dropdown.getValue()).toUpperCase());
@@ -82,12 +77,12 @@ public class RegistrationView extends VerticalLayout implements View{
         }
     }
 
-    private void onAbortClick(){
+    protected void onAbortClick(){
 
         nav.navigateTo("login");
     }
 
-    private boolean validate(){
+    protected boolean validate(){
 
         try{
             this.usernameField.validate();
