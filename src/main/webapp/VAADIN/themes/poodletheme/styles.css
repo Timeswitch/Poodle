@@ -12944,3 +12944,7 @@ div.v-layout.v-horizontal.v-widget {
 .poodletheme .headerColor {
 	color: #f0f0f0 !important;
 }
+
+.poodletheme .v-table-resizer {
+	display: none;
+}

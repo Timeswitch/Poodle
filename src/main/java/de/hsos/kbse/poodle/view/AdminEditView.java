@@ -81,6 +81,10 @@ public class AdminEditView extends CustomComponent implements View{
         this.slotTable.addContainerProperty("Uhrzeit",String.class,null);
         this.slotTable.addContainerProperty("Student",String.class,null);
         this.slotTable.addContainerProperty("",Button.class,null);
+        this.slotTable.setEditable(false);
+        this.slotTable.setDragMode(Table.TableDragMode.NONE);
+        this.slotTable.setColumnCollapsingAllowed(false);
+        this.slotTable.setColumnReorderingAllowed(false);
         this.slotTable.setSizeFull();
 
         examTab.addComponent(slotTable);
@@ -111,6 +115,10 @@ public class AdminEditView extends CustomComponent implements View{
         this.studentTable = new Table();
         this.studentTable.addContainerProperty("Name",String.class,null);
         this.studentTable.addContainerProperty("",Button.class,null);
+        this.studentTable.setEditable(false);
+        this.studentTable.setDragMode(Table.TableDragMode.NONE);
+        this.studentTable.setColumnCollapsingAllowed(false);
+        this.studentTable.setColumnReorderingAllowed(false);
         this.studentTable.setSizeFull();
         studentTab.addComponent(studentTable);
 

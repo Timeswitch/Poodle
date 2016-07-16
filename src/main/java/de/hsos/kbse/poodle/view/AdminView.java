@@ -48,6 +48,10 @@ public class AdminView extends VerticalLayout implements View {
 
         this.examTable.addContainerProperty("Name", String.class, null);
         this.examTable.addContainerProperty("", CssLayout.class, null);
+        this.examTable.setEditable(false);
+        this.examTable.setDragMode(Table.TableDragMode.NONE);
+        this.examTable.setColumnCollapsingAllowed(false);
+        this.examTable.setColumnReorderingAllowed(false);
 
         this.refreshTable();
 

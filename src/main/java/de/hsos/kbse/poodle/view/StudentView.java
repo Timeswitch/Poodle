@@ -69,6 +69,10 @@ public class StudentView extends CustomComponent implements View{
         this.examTable.setSizeFull();
         this.examTable.setSelectable(true);
         this.examTable.setImmediate(true);
+        this.examTable.setEditable(false);
+        this.examTable.setDragMode(Table.TableDragMode.NONE);
+        this.examTable.setColumnCollapsingAllowed(false);
+        this.examTable.setColumnReorderingAllowed(false);
         this.examTable.addValueChangeListener(e -> this.onExamTableClick());
 
         examTab.addComponent(examTable);
@@ -84,6 +88,10 @@ public class StudentView extends CustomComponent implements View{
         this.slotTable.addContainerProperty("Datum",String.class,null);
         this.slotTable.addContainerProperty("Zeit",String.class,null);
         this.slotTable.addContainerProperty("",Button.class,null);
+        this.slotTable.setEditable(false);
+        this.slotTable.setDragMode(Table.TableDragMode.NONE);
+        this.slotTable.setColumnCollapsingAllowed(false);
+        this.slotTable.setColumnReorderingAllowed(false);
 
         this.slotTable.setSizeFull();
         studentTab.addComponent(this.slotTable);
